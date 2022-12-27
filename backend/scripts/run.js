@@ -2,8 +2,9 @@ const main = async () => {
     const DsnsContractFactory = await hre.ethers.getContractFactory("DecentraSns");
     const DsnsContract = await DsnsContractFactory.deploy();
     const DecentraSns = await DsnsContract.deployed();
+    console.log("Contract deployed to: ", DecentraSns.address);
 
-    console.log("DecentraSns address: ", DecentraSns.address);
+    let txn = await DecentraSns.uploadPost();
 };
 
 const runMain = async () => {
