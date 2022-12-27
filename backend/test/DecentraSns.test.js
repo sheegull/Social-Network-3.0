@@ -1,8 +1,12 @@
-const { expect } = require("chai");
 const { ethers } = require("hardhat");
+const { expect } = require("chai");
 
-describe("first test", function () {
-    it("it always fail", async function () {
-        expect(false).to.equal(false);
+describe("DecentraSns", function () {
+    it("construct", async function () {
+        const DsnsContractFactory = await hre.ethers.getContractFactory("DecentraSns");
+        const DsnsContract = await DsnsContractFactory.deploy();
+        await DsnsContract.deployed();
+
+        console.log("Contract deployed to: ", DsnsContract.address);
     });
 });
