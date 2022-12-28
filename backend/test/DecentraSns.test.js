@@ -23,6 +23,14 @@ describe("DecentraSns", function () {
                 "Cannot pass an empty text"
             );
         });
+
+        it("Should return the uploadPost", async function () {
+            const { owner, addr1, decentrasns } = await loadFixture(deployContract);
+            let txn = await decentrasns.uploadPost("owner: test #1");
+            await txn.wait();
+
+            // await expect(decentrasns.)
+        });
     });
 
     // describe("uploadPost", function () {
