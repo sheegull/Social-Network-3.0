@@ -16,44 +16,48 @@ contract DecentraSns {
     struct Post {
         uint256 id;
         address from;
-        string message;
+        string text;
         uint256 timestamp;
         uint256 like;
-        bool likeFlg;
+        bool isLiking;
     }
 
     // 新しくpostが作成されたときに呼び出されるイベント
     event PostCreated(
         uint256 id,
         address from,
-        string message,
+        string text,
         uint256 timestamp,
         uint256 like,
-        bool likeFlg
+        bool isLiking
     );
 
     constructor() {
         console.log("success");
     }
 
+    function print(uint256 number) public view {
+        console.log(number);
+    }
+
     // 投稿機能の関数
-    function uploadPost(string memory _message) public {
+    function uploadPost(string memory _text) public {
         uint256 newPostId = _postIds.current();
         uint256 _timestamp = block.timestamp;
         uint256 initLike = 0;
-        bool initLikeFlg = false;
+        bool initIsLiking = false;
 
         // 文字数制限（0文字投稿禁止）
-        require(bytes(_message).length > 0, "Cannnot pass an empty message");
+        require(bytes(_text).length > 0, "Cannnot pass an empty text");
 
         // コントラクトにpostを追加
         posts[newPostId] = Post(
             newPostId,
             msg.sender,
-            _message,
+            _text,
             _timestamp,
             initLike,
-            initLikeFlg
+            initIsLiking
         );
         _postIds.increment();
 
@@ -61,10 +65,10 @@ contract DecentraSns {
         emit PostCreated(
             newPostId,
             msg.sender,
-            _message,
+            _text,
             _timestamp,
             initLike,
-            initLikeFlg
+            initIsLiking
         );
     }
 }

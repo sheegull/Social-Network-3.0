@@ -3,8 +3,6 @@ const main = async () => {
     const DsnsContract = await DsnsContractFactory.deploy();
     const DecentraSns = await DsnsContract.deployed();
     console.log("Contract deployed to: ", DecentraSns.address);
-
-    let txn = await DecentraSns.uploadPost();
 };
 
 const runMain = async () => {
