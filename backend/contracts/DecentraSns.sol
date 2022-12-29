@@ -10,11 +10,6 @@ contract DecentraSns {
     using Counters for Counters.Counter;
     Counters.Counter private _postIds;
 
-    struct User {
-        address id;
-        // string iconUrl;
-    }
-
     struct Post {
         uint256 id;
         address from;
@@ -27,11 +22,17 @@ contract DecentraSns {
     // 全投稿を格納する配列
     Post[] public allPosts;
 
-    mapping(address => User) public users;
     mapping(address => uint256[]) public likedList;
 
     // 新しくpostが作成されたときに呼び出されるイベント
-    event newPosted(address indexed from);
+    event newPosted(
+        uint256 id,
+        address indexed from,
+        string text,
+        uint256 timestamp,
+        uint256 like,
+        bool isLiking
+    );
 
     // 新しくpostがいいねされたときに呼び出されるイベント
     event newLiked(
@@ -44,7 +45,7 @@ contract DecentraSns {
     );
 
     constructor() {
-        console.log("success");
+        console.log("contract initialize");
     }
 
     // 投稿機能
@@ -66,14 +67,23 @@ contract DecentraSns {
         _postIds.increment();
 
         // postが作成されたのでイベント発火
-        emit newPosted(msg.sender);
+        emit newPosted(
+            newPostId + 1,
+            msg.sender,
+            _text,
+            block.timestamp,
+            0,
+            false
+        );
     }
 
     // いいね機能
     function addLike(uint256 _id) public {
         // 二重いいねを禁止
         for (uint256 i = 0; i < likedList[msg.sender].length; i++) {
-            if (likedList[msg.sender][i] == _id) return;
+            if (likedList[msg.sender][i] == _id) {
+                return;
+            }
         }
 
         // いいね数の更新
@@ -114,5 +124,23 @@ contract DecentraSns {
             resPosts[_id].like,
             resPosts[_id].isLiking
         );
+    }
+
+    // TLにある全投稿を取得
+    function getAllPosts() public view returns (Post[] memory) {
+        Post[] memory resPosts = allPosts;
+        // 投稿が0の場合
+        if (resPosts.length == 0) {
+            return resPosts;
+        }
+
+        //
+        for (uint256 i = 0; i < resPosts.length; i++) {
+            if (allPosts[i].id == _id) {
+                result = allPosts[i];
+                break;
+            }
+        }
+        return result;
     }
 }
