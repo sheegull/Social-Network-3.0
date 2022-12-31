@@ -6,7 +6,6 @@ import "hardhat/console.sol";
 import "@openzeppelin/contracts/token/ERC721/extensions/ERC721URIStorage.sol";
 
 contract decentrasns is ERC721URIStorage {
-    uint256 public tokenCount;
     uint256 public postCount;
 
     struct Post {
@@ -22,10 +21,10 @@ contract decentrasns is ERC721URIStorage {
         bool isLiked;
     }
 
+    // Post[] private posts;
     mapping(uint256 => Post) public posts;
     mapping(uint256 => Like[]) public likes;
 
-    // 新規投稿時に発火するイベント
     event NewPosted(
         uint256 id,
         string text,
@@ -62,12 +61,14 @@ contract decentrasns is ERC721URIStorage {
             if (likes[_postId][i].from == msg.sender) {
                 _exists = true;
                 // いいね取り消し
+                // likeCount--;
                 if (likes[_postId][i].isLiked) {
                     likes[_postId][i].isLiked = false;
                     emit LikePost(_postId, false);
                     posts[_postId].likeCount--;
                 } else {
                     // いいね追加
+                    // likeCount++;
                     likes[_postId][i].isLiked == true;
                     emit LikePost(_postId, true);
                     posts[_postId].likeCount++;
@@ -76,6 +77,7 @@ contract decentrasns is ERC721URIStorage {
         }
         // 新規いいね追加
         if (!_exists) {
+            // likeCount++;
             posts[_postId].likeCount++;
             likes[_postId].push(Like(msg.sender, true));
             emit LikePost(_postId, true);
@@ -99,6 +101,7 @@ contract decentrasns is ERC721URIStorage {
     ) public view returns (Like[] memory _likes) {
         Like[] memory temp = new Like[](likes[_postId].length);
         uint256 count = 0;
+        // _postIdのpostにいいねしているユーザー数を把握
         for (uint256 i = 0; i < likes[_postId].length; i++) {
             if (likes[_postId][i].isLiked) {
                 temp[count] = likes[_postId][i];
@@ -106,6 +109,7 @@ contract decentrasns is ERC721URIStorage {
             }
         }
 
+        // memoryとして保持するため、求めた長さを_likes配列に渡す
         _likes = new Like[](count);
         for (uint256 i = 0; i < count; i++) {
             _likes[i] = temp[i];
