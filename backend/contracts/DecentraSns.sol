@@ -43,7 +43,7 @@ contract decentrasns is ERC721URIStorage {
     }
 
     // 全post取得機能
-    function getAllPosts() public view returns (Post[] memory _posts)
+    function getAllPosts() public view returns (Post[] memory _posts) {
         // memoryとして保持するため、postCount分の長さを_posts配列に渡す
         _posts = new Post[](postCount);
 
@@ -51,4 +51,5 @@ contract decentrasns is ERC721URIStorage {
             // postsのPost.id=1から始まっているため
             _posts[i] = posts[i + 1];
         }
+    }
 }
