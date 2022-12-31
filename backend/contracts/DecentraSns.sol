@@ -20,13 +20,13 @@ contract decentrasns {
 
     // 新規投稿時に発火するイベント
     event NewPosted(
-        uint256 id;
-        string text;
-        address indexed author;
-        uint256 timestamp;
-    )
+        uint256 id,
+        string text,
+        address indexed author,
+        uint256 timestamp
+    );
 
-    constructor () {
+    constructor() {
         console.log("first smart contract");
     }
 
@@ -37,18 +37,9 @@ contract decentrasns {
         postCount++;
 
         // 新規postをpostsに紐付ける
-        posts[postCount] = Post(
-            postCount,
-            _text,
-            msg.sender,
-            block.timestamp
-        );
+        posts[postCount] = Post(postCount, _text, msg.sender, block.timestamp);
 
         // postが作成されたのでイベント発火
-        emit NewPosted(
-            postCount,
-            _text,
-            msg.sender,
-            block.timestamp
-        );
+        emit NewPosted(postCount, _text, msg.sender, block.timestamp);
+    }
 }
