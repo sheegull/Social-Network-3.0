@@ -16,6 +16,13 @@ describe("decentrasns", function () {
         return { owner, user1, user2, decentrasns };
     }
 
+    async function getTimestamp() {
+        const block = await ethers.provider.getBlockNumber();
+        const blockTimestamp = (await ethers.provider.getBlock(block)).timestamp + 1;
+
+        return blockTimestamp;
+    }
+
     describe("uploadPost", function () {
         it("Should return error", async function () {
             const { owner, decentrasns } = await loadFixture(deployContract);
@@ -25,8 +32,13 @@ describe("decentrasns", function () {
 
         it("Should upload a post", async function () {
             const { owner, user1, decentrasns } = await loadFixture(deployContract);
+            const { blockTimestamp } = await loadFixture(getTimestamp);
 
             // TEST #1 by owner
+            // await expect(decentrasns.uploadPost("hello world!"))
+            //     .to.emit(decentrasns, "NewPosted")
+            //     .withArgs(1, "hello world!", owner.address, blockTimestamp);
+
             let tx = await decentrasns.uploadPost("hello world!");
             await tx.wait();
 
@@ -36,12 +48,8 @@ describe("decentrasns", function () {
             let post = await decentrasns.posts(postCount);
             expect(post.id).to.equal(1);
             expect(post.text).to.equal("hello world!");
-            expect(post.author).to.equal(owner.address);
-            // expect(post.timestamp).to.equal(Date.now());
-
-            // await expect(tx)
-            //     .to.emit(decentrasns, "NewPosted")
-            //     .withArgs(1, "hello world!", owner.address, Date.now());
+            expect(post.from).to.equal(owner.address);
+            // await expect(await post.timestamp).to.equal(blockTimestamp);
 
             // TEST #2 by user1
             tx = await decentrasns.connect(user1).uploadPost("new world!");
@@ -53,7 +61,7 @@ describe("decentrasns", function () {
             post = await decentrasns.posts(postCount);
             expect(post.id).to.equal(2);
             expect(post.text).to.equal("new world!");
-            expect(post.author).to.equal(user1.address);
+            expect(post.from).to.equal(user1.address);
             // expect(post.timestamp).to.equal(Date.now());
 
             // await expect(tx)
