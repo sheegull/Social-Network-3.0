@@ -92,4 +92,23 @@ contract decentrasns is ERC721URIStorage {
             _posts[i] = posts[i + 1];
         }
     }
+
+    // postにいいねをしているユーザー取得
+    function getLikesPost(
+        uint256 _postId
+    ) public view returns (Like[] memory _likes) {
+        Like[] memory temp = new Like[](likes[_postId].length);
+        uint256 count = 0;
+        for (uint256 i = 0; i < likes[_postId].length; i++) {
+            if (likes[_postId][i].isLiked) {
+                temp[count] = likes[_postId][i];
+                count++;
+            }
+        }
+
+        _likes = new Like[](count);
+        for (uint256 i = 0; i < count; i++) {
+            _likes[i] = temp[i];
+        }
+    }
 }
