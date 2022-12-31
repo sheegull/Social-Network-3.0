@@ -41,4 +41,14 @@ contract decentrasns is ERC721URIStorage {
         // postが作成されたのでイベント発火
         emit NewPosted(postCount, _text, msg.sender, block.timestamp);
     }
+
+    // 全post取得機能
+    function getAllPosts() public view returns (Post[] memory _posts)
+        // memoryとして保持するため、postCount分の長さを_posts配列に渡す
+        _posts = new Post[](postCount);
+
+        for (uint256 i = 0; i < _posts.length; i++) {
+            // postsのPost.id=1から始まっているため
+            _posts[i] = posts[i + 1];
+        }
 }
