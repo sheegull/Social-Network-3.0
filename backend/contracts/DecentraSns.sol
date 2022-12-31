@@ -12,20 +12,29 @@ contract decentrasns is ERC721URIStorage {
     struct Post {
         uint256 id;
         string text;
-        address author;
+        address from;
         uint256 timestamp;
+        uint256 likeCount;
     }
 
-    // postId と postの構造体をマッピング
+    struct Like {
+        address from;
+        bool isLiked;
+    }
+
     mapping(uint256 => Post) public posts;
+    mapping(uint256 => Like[]) public likes;
 
     // 新規投稿時に発火するイベント
     event NewPosted(
         uint256 id,
         string text,
-        address indexed author,
-        uint256 timestamp
+        address indexed from,
+        uint256 timestamp,
+        uint256 likeCount
     );
+
+    event LikePost(uint256 postId, bool isLiked);
 
     constructor() ERC721("decentrasns", "DSNS") {}
 
@@ -36,10 +45,41 @@ contract decentrasns is ERC721URIStorage {
         postCount++;
 
         // 新規postをpostsに紐付ける
-        posts[postCount] = Post(postCount, _text, msg.sender, block.timestamp);
+        posts[postCount] = Post(
+            postCount,
+            _text,
+            msg.sender,
+            block.timestamp,
+            0
+        );
+        emit NewPosted(postCount, _text, msg.sender, block.timestamp, 0);
+    }
 
-        // postが作成されたのでイベント発火
-        emit NewPosted(postCount, _text, msg.sender, block.timestamp);
+    // いいね・取り消し機能
+    function changeLikePost(uint256 _postId) public {
+        bool _exists = false;
+        for (uint256 i = 0; i < likes[_postId].length; i++) {
+            if (likes[_postId][i].from == msg.sender) {
+                _exists = true;
+                // いいね取り消し
+                if (likes[_postId][i].isLiked) {
+                    likes[_postId][i].isLiked = false;
+                    emit LikePost(_postId, false);
+                    posts[_postId].likeCount--;
+                } else {
+                    // いいね追加
+                    likes[_postId][i].isLiked == true;
+                    emit LikePost(_postId, true);
+                    posts[_postId].likeCount++;
+                }
+            }
+        }
+        // 新規いいね追加
+        if (!_exists) {
+            posts[_postId].likeCount++;
+            likes[_postId].push(Like(msg.sender, true));
+            emit LikePost(_postId, true);
+        }
     }
 
     // 全post取得機能
