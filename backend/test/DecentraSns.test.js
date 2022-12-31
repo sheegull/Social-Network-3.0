@@ -61,4 +61,22 @@ describe("decentrasns", function () {
             //     .withArgs(2, "new world!", user1.address, Date.now());
         });
     });
+
+    describe("getAllPosts", function () {
+        it("Should return all the posts", async function () {
+            const { owner, user1, decentrasns } = await loadFixture(deployContract);
+
+            let tx = await decentrasns.uploadPost("hello world!");
+            await tx.wait();
+
+            let allPosts = await decentrasns.getAllPosts();
+            expect(allPosts.length).to.equal(1);
+
+            tx = await decentrasns.connect(user1).uploadPost("new world!");
+            await tx.wait();
+
+            allPosts = await decentrasns.getAllPosts();
+            expect(allPosts.length).to.equal(2);
+        });
+    });
 });
