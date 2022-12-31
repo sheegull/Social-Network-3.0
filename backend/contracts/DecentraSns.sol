@@ -3,10 +3,11 @@
 pragma solidity ^0.8.17;
 
 import "hardhat/console.sol";
+import "@openzeppelin/contracts/token/ERC721/extensions/ERC721URIStorage.sol";
 
-contract decentrasns {
-    uint256 tokenCount;
-    uint256 postCount;
+contract decentrasns is ERC721URIStorage {
+    uint256 public tokenCount;
+    uint256 public postCount;
 
     struct Post {
         uint256 id;
@@ -26,9 +27,7 @@ contract decentrasns {
         uint256 timestamp
     );
 
-    constructor() {
-        console.log("first smart contract");
-    }
+    constructor() ERC721("decentrasns", "DSNS") {}
 
     // post機能
     function uploadPost(string memory _text) public {
