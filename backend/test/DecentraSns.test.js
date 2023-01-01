@@ -37,7 +37,7 @@ describe("decentrasns", function () {
             // TEST #1 by owner
             // await expect(decentrasns.uploadPost("hello world!"))
             //     .to.emit(decentrasns, "NewPosted")
-            //     .withArgs(1, "hello world!", owner.address, blockTimestamp);
+            //     .withArgs(1, "hello world!", owner.address, blockTimestamp, 0);
 
             let tx = await decentrasns.uploadPost("hello world!");
             await tx.wait();
@@ -66,7 +66,7 @@ describe("decentrasns", function () {
 
             // await expect(tx)
             //     .to.emit(decentrasns, "NewPosted")
-            //     .withArgs(2, "new world!", user1.address, Date.now());
+            //     .withArgs(2, "new world!", user1.address, Date.now(), 0);
         });
     });
 

@@ -21,7 +21,9 @@ contract decentrasns is ERC721URIStorage {
         bool isLiked;
     }
 
-    Post[] public posts;
+    // Post[] public posts;
+    mapping(uint256 => Post) public posts;
+    // postId と Like構造体を紐付ける
     mapping(uint256 => Like[]) public likes;
 
     event NewPosted(
@@ -42,15 +44,22 @@ contract decentrasns is ERC721URIStorage {
         require(bytes(_text).length > 0, "Cannot pass an empty text");
         postCount++;
 
+        // Post memory newPost;
+        // newPost.id = postCount;
+        // newPost.text = _text;
+        // newPost.from = msg.sender;
+        // newPost.timestamp = block.timestamp;
+        // newPost.likeCount = 0;
+        // posts.push(newPost);
+
         // 新規Postを作成
-        Post memory newPost = Post({
+        posts[postCount] = Post({
             id: postCount,
             text: _text,
             from: msg.sender,
             timestamp: block.timestamp,
             likeCount: 0
         });
-        posts.push(newPost);
 
         emit NewPosted(postCount, _text, msg.sender, block.timestamp, 0);
     }
