@@ -172,4 +172,33 @@ describe("decentrasns", function () {
             expect(allPosts.length).to.equal(2);
         });
     });
+
+    describe("getLikesPost", function () {
+        it("Should return users who have liked the post", async function () {
+            const { owner, user1, user2, decentrasns } = await loadFixture(deployContract);
+
+            let tx = await decentrasns.uploadPost("hello world!");
+            await tx.wait();
+
+            let postCount = await decentrasns.postCount();
+            expect(postCount).to.equal(1);
+
+            let addLike = await decentrasns.connect(user1).changeLikePost(postCount);
+            await addLike.wait();
+
+            addLike = await decentrasns.connect(user2).changeLikePost(postCount);
+            await addLike.wait();
+
+            post = await decentrasns.posts(postCount);
+            expect(post.id).to.equal(1);
+            expect(post.likeCount).to.equal(2);
+
+            let LikesPost = await decentrasns.getLikesPost(postCount);
+            expect(LikesPost.length).to.equal(2);
+            expect(LikesPost[0].from).to.equal(user1.address);
+            expect(LikesPost[0].isLiked).to.equal(true);
+            expect(LikesPost[1].from).to.equal(user2.address);
+            expect(LikesPost[1].isLiked).to.equal(true);
+        });
+    });
 });
