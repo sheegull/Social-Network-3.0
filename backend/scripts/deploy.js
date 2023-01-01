@@ -5,6 +5,7 @@ async function main() {
     const decentrasns = await Decentrasns.deploy();
     await decentrasns.deployed();
 
+    console.log("deploy success 🎉🎉");
     console.log("Contract deployed to: ", decentrasns.address);
 }
 
