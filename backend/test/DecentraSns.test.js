@@ -2,7 +2,6 @@ const { ethers } = require("hardhat");
 const { assert } = require("console");
 const { expect } = require("chai");
 const { loadFixture } = require("@nomicfoundation/hardhat-network-helpers");
-const { deflateRawSync } = require("zlib");
 
 describe("decentrasns", function () {
     // ヘルパー関数
@@ -49,6 +48,7 @@ describe("decentrasns", function () {
             expect(post.id).to.equal(1);
             expect(post.text).to.equal("hello world!");
             expect(post.from).to.equal(owner.address);
+            expect(post.likeCount).to.equal(0);
             // await expect(await post.timestamp).to.equal(blockTimestamp);
 
             // TEST #2 by user1
@@ -62,11 +62,89 @@ describe("decentrasns", function () {
             expect(post.id).to.equal(2);
             expect(post.text).to.equal("new world!");
             expect(post.from).to.equal(user1.address);
+            expect(post.likeCount).to.equal(0);
             // expect(post.timestamp).to.equal(Date.now());
 
             // await expect(tx)
             //     .to.emit(decentrasns, "NewPosted")
             //     .withArgs(2, "new world!", user1.address, Date.now(), 0);
+        });
+    });
+
+    describe("changeLikePost", function () {
+        //     it("Should return error", async function () {
+        //         const { owner, user1, user2, decentrasns } = await loadFixture(deployContract);
+
+        //         let tx = await decentrasns.connect(user1).uploadPost("hello world!");
+        //         await tx.wait();
+
+        //         tx = await decentrasns.connect(user2).uploadPost("new world!");
+        //         await tx.wait();
+
+        //         let postCount = await decentrasns.postCount();
+        //         expect(postCount).to.equal(1);
+
+        // let post = await decentrasns.posts(postCount);
+        // expect(post.id).to.equal(1);
+        // expect(post.text).to.equal("hello world!");
+        // expect(post.from).to.equal(user1.address);
+        // expect(post.likeCount).to.equal(0);
+
+        // // addLike test
+        // let addLike = await decentrasns.changeLikePost(postCount);
+        // await addLike.wait();
+
+        // post = await decentrasns.posts(postCount);
+        // expect(post.id).to.equal(1);
+        // expect(post.likeCount).to.equal(1);
+
+        // // removeLike test
+        // let removeLike = await decentrasns.changeLikePost(postCount);
+        // await removeLike.wait();
+
+        // post = await decentrasns.posts(postCount);
+        // expect(post.id).to.equal(1);
+        // expect(post.likeCount).to.equal(0);
+        // });
+
+        it("Should add/remove like", async function () {
+            const { owner, user1, user2, decentrasns } = await loadFixture(deployContract);
+
+            let tx = await decentrasns.connect(user1).uploadPost("hello world!");
+            await tx.wait();
+
+            let postCount = await decentrasns.postCount();
+            expect(postCount).to.equal(1);
+
+            let post = await decentrasns.posts(postCount);
+            expect(post.id).to.equal(1);
+            expect(post.text).to.equal("hello world!");
+            expect(post.from).to.equal(user1.address);
+            expect(post.likeCount).to.equal(0);
+
+            // addLike test
+            let addLike = await decentrasns.changeLikePost(postCount);
+            await addLike.wait();
+
+            post = await decentrasns.posts(postCount);
+            expect(post.id).to.equal(1);
+            expect(post.likeCount).to.equal(1);
+
+            // removeLike test
+            let removeLike = await decentrasns.changeLikePost(postCount);
+            await removeLike.wait();
+
+            post = await decentrasns.posts(postCount);
+            expect(post.id).to.equal(1);
+            expect(post.likeCount).to.equal(0);
+
+            // addLike by other user
+            addLike = await decentrasns.connect(user2).changeLikePost(postCount);
+            await addLike.wait();
+
+            post = await decentrasns.posts(postCount);
+            expect(post.id).to.equal(1);
+            expect(post.likeCount).to.equal(1);
         });
     });
 
