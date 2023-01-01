@@ -21,8 +21,7 @@ contract decentrasns is ERC721URIStorage {
         bool isLiked;
     }
 
-    // Post[] private posts;
-    mapping(uint256 => Post) public posts;
+    Post[] public posts;
     mapping(uint256 => Like[]) public likes;
 
     event NewPosted(
@@ -43,14 +42,16 @@ contract decentrasns is ERC721URIStorage {
         require(bytes(_text).length > 0, "Cannot pass an empty text");
         postCount++;
 
-        // 新規postをpostsに紐付ける
-        posts[postCount] = Post(
-            postCount,
-            _text,
-            msg.sender,
-            block.timestamp,
-            0
-        );
+        // 新規Postを作成
+        Post memory newPost = Post({
+            id: postCount,
+            text: _text,
+            from: msg.sender,
+            timestamp: block.timestamp,
+            likeCount: 0
+        });
+        posts.push(newPost);
+
         emit NewPosted(postCount, _text, msg.sender, block.timestamp, 0);
     }
 
@@ -61,14 +62,12 @@ contract decentrasns is ERC721URIStorage {
             if (likes[_postId][i].from == msg.sender) {
                 _exists = true;
                 // いいね取り消し
-                // likeCount--;
                 if (likes[_postId][i].isLiked) {
                     likes[_postId][i].isLiked = false;
                     emit LikePost(_postId, false);
                     posts[_postId].likeCount--;
                 } else {
                     // いいね追加
-                    // likeCount++;
                     likes[_postId][i].isLiked == true;
                     emit LikePost(_postId, true);
                     posts[_postId].likeCount++;
@@ -77,7 +76,6 @@ contract decentrasns is ERC721URIStorage {
         }
         // 新規いいね追加
         if (!_exists) {
-            // likeCount++;
             posts[_postId].likeCount++;
             likes[_postId].push(Like(msg.sender, true));
             emit LikePost(_postId, true);
