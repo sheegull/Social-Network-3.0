@@ -72,40 +72,40 @@ describe("decentrasns", function () {
     });
 
     describe("changeLikePost", function () {
-        //     it("Should return error", async function () {
-        //         const { owner, user1, user2, decentrasns } = await loadFixture(deployContract);
+        it("Should return error", async function () {
+            const { owner, user1, user2, decentrasns } = await loadFixture(deployContract);
 
-        //         let tx = await decentrasns.connect(user1).uploadPost("hello world!");
-        //         await tx.wait();
+            let tx = await decentrasns.connect(user1).uploadPost("hello world!");
+            await tx.wait();
+            let postCount = await decentrasns.postCount();
+            expect(postCount).to.equal(1);
 
-        //         tx = await decentrasns.connect(user2).uploadPost("new world!");
-        //         await tx.wait();
+            tx = await decentrasns.connect(user2).uploadPost("new world!");
+            await tx.wait();
+            let postCount2 = await decentrasns.postCount();
+            expect(postCount2).to.equal(2);
 
-        //         let postCount = await decentrasns.postCount();
-        //         expect(postCount).to.equal(1);
+            let post = await decentrasns.posts(postCount);
+            expect(post.id).to.equal(1);
+            expect(post.text).to.equal("hello world!");
+            expect(post.from).to.equal(user1.address);
+            expect(post.likeCount).to.equal(0);
 
-        // let post = await decentrasns.posts(postCount);
-        // expect(post.id).to.equal(1);
-        // expect(post.text).to.equal("hello world!");
-        // expect(post.from).to.equal(user1.address);
-        // expect(post.likeCount).to.equal(0);
+            // 投稿した本人がいいねした場合
+            // await expect(await decentrasns.connect(user1).changeLikePost(postCount)).to.be.reverted;
 
-        // // addLike test
-        // let addLike = await decentrasns.changeLikePost(postCount);
-        // await addLike.wait();
+            // post = await decentrasns.posts(postCount);
+            // expect(post.id).to.equal(1);
+            // expect(post.likeCount).to.equal(1);
 
-        // post = await decentrasns.posts(postCount);
-        // expect(post.id).to.equal(1);
-        // expect(post.likeCount).to.equal(1);
+            // // removeLike test
+            // let removeLike = await decentrasns.changeLikePost(postCount);
+            // await removeLike.wait();
 
-        // // removeLike test
-        // let removeLike = await decentrasns.changeLikePost(postCount);
-        // await removeLike.wait();
-
-        // post = await decentrasns.posts(postCount);
-        // expect(post.id).to.equal(1);
-        // expect(post.likeCount).to.equal(0);
-        // });
+            // post = await decentrasns.posts(postCount);
+            // expect(post.id).to.equal(1);
+            // expect(post.likeCount).to.equal(0);
+        });
 
         it("Should add/remove like", async function () {
             const { owner, user1, user2, decentrasns } = await loadFixture(deployContract);
@@ -145,6 +145,13 @@ describe("decentrasns", function () {
             post = await decentrasns.posts(postCount);
             expect(post.id).to.equal(1);
             expect(post.likeCount).to.equal(1);
+
+            addLike = await decentrasns.connect(user2).changeLikePost(postCount);
+            await addLike.wait();
+
+            post = await decentrasns.posts(postCount);
+            expect(post.id).to.equal(1);
+            expect(post.likeCount).to.be.reverted;
         });
     });
 
