@@ -14,7 +14,7 @@ export default function Layout({ children, home }) {
                     name="description"
                     content="It is a message dapp that exchanges text and AVAX"
                 />
-                <title>Messenger</title>
+                <title>D-SNS</title>
             </Head>
             <main>{children}</main>
             {!home && (
