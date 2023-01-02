@@ -10,9 +10,10 @@ const style = {
     widgets: "w-1/4 mr-10 my-7 h-screen w-screen overflow-y-scroll scrollbar-hide",
     loginContainer: `w-full h-full flex flex-col justify-center items-center pb-48`,
     connectWalletButton: `text-2xl text-black bg-white font-bold mb-[-3rem] mt-[3rem] px-6 py-4 rounded-full cursor-pointer hover:bg-[#d7dbdc]`,
-    loginContent: `text-3xl font-bold text-center mt-24`,
+    loginContent: `text-3xl font-bold text-center leading-10 mt-28`,
 };
 
+// walletへの接続状況で LoginPage or HomePage を表示
 export default function RequireWallet({ children, currentAccount, connectWallet }) {
     return (
         <div>
@@ -30,7 +31,10 @@ export default function RequireWallet({ children, currentAccount, connectWallet 
                     <div className={style.connectWalletButton} onClick={() => connectWallet()}>
                         Connect Wallet
                     </div>
-                    <div className={style.loginContent}>Connect to Metamask !!</div>
+                    <div className={style.loginContent}>
+                        <p>Welcome to DecentraSNS 🧜</p>
+                        <p>Connect to Metamask !!</p>
+                    </div>
                 </div>
             )}
         </div>
