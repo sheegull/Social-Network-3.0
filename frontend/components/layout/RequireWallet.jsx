@@ -30,7 +30,7 @@ export default function RequireWallet({ children, currentAccount, connectWallet 
                     <div className={style.connectWalletButton} onClick={() => connectWallet()}>
                         Connect Wallet
                     </div>
-                    <div className={style.loginContent}>Connect to Metamask.</div>
+                    <div className={style.loginContent}>Connect to Metamask !!</div>
                 </div>
             )}
         </div>
