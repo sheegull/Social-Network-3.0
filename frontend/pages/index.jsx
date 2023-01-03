@@ -5,6 +5,7 @@ import Layout from "../components/layout/Layout";
 import RequireWallet from "../components/layout/RequireWallet";
 import { useWallet } from "../hooks/useWallet";
 import { useDecentrasnsContract } from "../hooks/useDecentrasnsContract";
+import SendMessageForm from "../components/postBox";
 
 const style = {
     wrapper: `flex h-screen w-screen overflow-hidden select-none bg-[#121212] text-[#f2f2f2] font-light`,
@@ -35,7 +36,7 @@ const Home = () => {
                         </div>
                         <div className="bio">メッセージを作成して投稿をBlockchainに記録しよう</div>
                         <br />
-                        {currentAccount && (
+                        {/* {currentAccount && (
                             <textarea
                                 className="textArea"
                                 name="tweetArea"
@@ -45,16 +46,25 @@ const Home = () => {
                                 value={text}
                                 onChange={(e) => setText(e.target.value)}
                             />
-                        )}
-                        <div className="icons">
+                        )} */}
+                        {/* <div className="icons">
                             <div className="loading">{isLoading && <div>Loading...</div>}</div>
                             {currentAccount && (
                                 <button className="waveButton" onClick={uploadPost}>
                                     投稿
                                 </button>
                             )}
-                        </div>
-                        {currentAccount && (
+                        </div> */}
+                        {isLoading ? (
+                            <div>Loading...</div>
+                        ) : (
+                            <SendMessageForm
+                                sendMessage={(text) => {
+                                    uploadPost({ text });
+                                }}
+                            />
+                        )}
+                        {/* {currentAccount && (
                             <div className="sort">
                                 <button className="sortButton" onClick={""}>
                                     sort Date
@@ -63,7 +73,7 @@ const Home = () => {
                                     sort LikeCount
                                 </button>
                             </div>
-                        )}
+                        )} */}
                         {currentAccount &&
                             allPosts
                                 .slice(0)
