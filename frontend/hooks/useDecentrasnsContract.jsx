@@ -7,7 +7,7 @@ const contractABI = ABI.abi;
 
 export const useDecentrasnsContract = ({ currentAccount }) => {
     // txの処理中のフラグを表す状態変数。
-    const [processing, setProcessing] = useState(false);
+    const [isLoading, setIsLoading] = useState(false);
     // contractのオブジェクトを格納する状態変数。
     const [decentrasnsContract, setDecentrasnsContract] = useState();
     // postを配列で保持する状態変数。
@@ -55,28 +55,20 @@ export const useDecentrasnsContract = ({ currentAccount }) => {
         }
     }
 
-    // async function sendMessage({ text, receiver, tokenInEther }) {
-    //     if (!decentrasnsContract) return;
-    //     try {
-    //         const tokenInWei = ethers.utils.parseEther(tokenInEther);
-    //         console.log(
-    //             "call post with receiver:[%s], token:[%s]",
-    //             receiver,
-    //             tokenInWei.toString()
-    //         );
-    //         const txn = await decentrasnsContract.post(text, receiver, {
-    //             gasLimit: 300000,
-    //             value: tokenInWei,
-    //         });
-    //         console.log("Processing...", txn.hash);
-    //         setProcessing(true);
-    //         await txn.wait();
-    //         console.log("Done -- ", txn.hash);
-    //         setProcessing(false);
-    //     } catch (error) {
-    //         console.log(error);
-    //     }
-    // }
+    // 新規投稿
+    async function uploadPost({ text }) {
+        if (!decentrasnsContract) return;
+        try {
+            const txn = await decentrasnsContract.uploadPost(text);
+            console.log("Processing...", txn.hash);
+            setIsLoading(true);
+            await txn.wait();
+            console.log("Done -- ", txn.hash);
+            setIsLoading(false);
+        } catch (error) {
+            console.log(error);
+        }
+    }
 
     useEffect(() => {
         getDecentrasnsContract();
@@ -120,8 +112,8 @@ export const useDecentrasnsContract = ({ currentAccount }) => {
     // }, [decentrasnsContract]);
 
     return {
-        processing,
+        isLoading,
         posts,
-        // sendMessage,
+        uploadPost,
     };
 };
