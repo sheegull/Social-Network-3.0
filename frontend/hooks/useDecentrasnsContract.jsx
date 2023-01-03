@@ -6,12 +6,12 @@ const contractAddress = "0xB66e3Ed7F536F9Bcf19DBFbA9f396B9844499Fc7";
 const contractABI = ABI.abi;
 
 export const useDecentrasnsContract = ({ currentAccount }) => {
-    // トランザクションの処理中のフラグを表す状態変数。
+    // txの処理中のフラグを表す状態変数。
     const [processing, setProcessing] = useState(false);
-    // コントラクトのオブジェクトを格納する状態変数。
+    // contractのオブジェクトを格納する状態変数。
     const [decentrasnsContract, setDecentrasnsContract] = useState();
-    // ユーザ宛のメッセージを配列で保持する状態変数。
-    const [ownMessages, setOwnMessages] = useState([]);
+    // postを配列で保持する状態変数。
+    const [posts, setPosts] = useState([]);
 
     // contract呼び出し
     function getDecentrasnsContract() {
@@ -35,25 +35,25 @@ export const useDecentrasnsContract = ({ currentAccount }) => {
         }
     }
 
-    // async function getOwnMessages() {
-    //     if (!decentrasnsContract) return;
-    //     try {
-    //         const OwnMessages = await decentrasnsContract.getOwnMessages();
-    //         const messagesCleaned = OwnMessages.map((message) => {
-    //             return {
-    //                 sender: message.sender,
-    //                 receiver: message.receiver,
-    //                 depositInWei: message.depositInWei,
-    //                 timestamp: new Date(message.timestamp.toNumber() * 1000),
-    //                 text: message.text,
-    //                 isPending: message.isPending,
-    //             };
-    //         });
-    //         setOwnMessages(messagesCleaned);
-    //     } catch (error) {
-    //         console.log(error);
-    //     }
-    // }
+    // 全post取得
+    async function getAllPosts() {
+        if (!decentrasnsContract) return;
+        try {
+            const AllPosts = await decentrasnsContract.getAllPosts();
+            const postsCleaned = AllPosts.map((post) => {
+                return {
+                    id: post.id,
+                    text: post.text,
+                    from: post.from,
+                    timestamp: post.timestamp,
+                    likeCount: post.likeCount,
+                };
+            });
+            setPosts(postsCleaned);
+        } catch (error) {
+            console.log(error);
+        }
+    }
 
     // async function sendMessage({ text, receiver, tokenInEther }) {
     //     if (!decentrasnsContract) return;
@@ -80,7 +80,7 @@ export const useDecentrasnsContract = ({ currentAccount }) => {
 
     useEffect(() => {
         getDecentrasnsContract();
-        // getOwnMessages();
+        getAllPosts();
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [currentAccount, ethereum]);
 
@@ -88,10 +88,10 @@ export const useDecentrasnsContract = ({ currentAccount }) => {
     //     // NewMessageのイベントリスナ
     //     const onNewMessage = (sender, receiver, depositInWei, timestamp, text, isPending) => {
     //         console.log("NewMessage from %s to %s", sender, receiver);
-    //         // 自分宛のメッセージの場合ownMessagesを編集します。
+    //         // 自分宛のメッセージの場合setPostsを編集します。
     //         // 各APIの使用によりアドレス英字が大文字小文字の違いが出る場合がありますが, その違いはアドレス値において区別されません。
     //         if (receiver.toLocaleLowerCase() === currentAccount) {
-    //             setOwnMessages((prevState) => [
+    //             setPosts((prevState) => [
     //                 ...prevState,
     //                 {
     //                     sender: sender,
@@ -121,7 +121,7 @@ export const useDecentrasnsContract = ({ currentAccount }) => {
 
     return {
         processing,
-        // ownMessages,
+        posts,
         // sendMessage,
     };
 };
