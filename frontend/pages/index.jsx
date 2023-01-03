@@ -20,26 +20,10 @@ const Home = () => {
 
     return (
         <Layout home>
-            <RequireWallet currentAccount={currentAccount} connectWallet={connectWallet}>
-                <div className={styles.container}>
-                    <main className={styles.main}>
-                        <h1 className={styles.title}>Welcome to Messenger 📫</h1>
-                        <div className={styles.card}>
-                            <Link href="/message/SendMessagePage">
-                                <h2>send &rarr;</h2>
-                            </Link>
-                            <p>send messages and avax to other accounts</p>
-                        </div>
-
-                        <div className={styles.card}>
-                            <Link href="/message/ConfirmMessagePage">
-                                <h2>check &rarr;</h2>
-                            </Link>
-                            <p>Check messages from other accounts</p>
-                        </div>
-                    </main>
-                </div>
-            </RequireWallet>
+            <RequireWallet
+                currentAccount={currentAccount}
+                connectWallet={connectWallet}
+            ></RequireWallet>
         </Layout>
     );
 };
