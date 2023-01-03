@@ -35,12 +35,6 @@ const Home = () => {
                         </div>
                         <div className="bio">メッセージを作成して投稿をBlockchainに記録しよう</div>
                         <br />
-                        {/* ウォレットコネクトのボタン */}
-                        {!currentAccount && (
-                            <button className="waveButton" onClick={connectWallet}>
-                                Connect Wallet
-                            </button>
-                        )}
                         {currentAccount && (
                             <textarea
                                 className="textArea"
@@ -53,9 +47,9 @@ const Home = () => {
                             />
                         )}
                         <div className="icons">
-                            {/* <div className="loading">{isLoading && <Loading />}</div> */}
+                            <div className="loading">{isLoading && <div>Loading...</div>}</div>
                             {currentAccount && (
-                                <button className="waveButton" onClick={uploadPost({ text })}>
+                                <button className="waveButton" onClick={uploadPost}>
                                     投稿
                                 </button>
                             )}
@@ -80,7 +74,7 @@ const Home = () => {
                                             key={index}
                                             style={{
                                                 width: "600px",
-                                                backgroundColor: "#F8F8FF",
+                                                backgroundColor: "gray",
                                                 marginTop: "16px",
                                                 padding: "8px",
                                             }}
