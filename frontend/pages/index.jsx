@@ -5,7 +5,7 @@ import Layout from "../components/layout/Layout";
 import RequireWallet from "../components/layout/RequireWallet";
 import { useWallet } from "../hooks/useWallet";
 import { useDecentrasnsContract } from "../hooks/useDecentrasnsContract";
-import SendMessageForm from "../components/postBox";
+import PostBox from "../components/form/PostBox";
 
 const style = {
     wrapper: `flex h-screen w-screen overflow-hidden select-none bg-[#121212] text-[#f2f2f2] font-light`,
@@ -21,7 +21,6 @@ const style = {
 const Home = () => {
     const { currentAccount, connectWallet } = useWallet();
     const { isLoading, allPosts, uploadPost } = useDecentrasnsContract({ currentAccount });
-    const [text, setText] = useState("");
 
     return (
         <Layout home>
@@ -32,34 +31,15 @@ const Home = () => {
                             <span role="img" aria-label="hand-wave">
                                 👋
                             </span>{" "}
-                            WELCOME
+                            WELCOME to Social Network 3.0 !!
                         </div>
-                        <div className="bio">メッセージを作成して投稿をBlockchainに記録しよう</div>
+                        <div className="bio">D-SNSにあなたのメッセージを記録しよう!!</div>
                         <br />
-                        {/* {currentAccount && (
-                            <textarea
-                                className="textArea"
-                                name="tweetArea"
-                                placeholder="メッセージを入力"
-                                type="text"
-                                id="tweet"
-                                value={text}
-                                onChange={(e) => setText(e.target.value)}
-                            />
-                        )} */}
-                        {/* <div className="icons">
-                            <div className="loading">{isLoading && <div>Loading...</div>}</div>
-                            {currentAccount && (
-                                <button className="waveButton" onClick={uploadPost}>
-                                    投稿
-                                </button>
-                            )}
-                        </div> */}
                         {isLoading ? (
                             <div>Loading...</div>
                         ) : (
-                            <SendMessageForm
-                                sendMessage={(text) => {
+                            <PostBox
+                                uploadPost={(text) => {
                                     uploadPost({ text });
                                 }}
                             />

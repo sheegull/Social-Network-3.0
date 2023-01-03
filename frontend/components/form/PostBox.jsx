@@ -1,13 +1,13 @@
 import styles from "./Form.module.css";
 import { useState } from "react";
 
-export default function SendMessageForm({ sendMessage }) {
+export default function PostBox({ uploadPost }) {
     const [textValue, setTextValue] = useState("");
 
     return (
         <div className={styles.container}>
             <div className={styles.form}>
-                <div className={styles.title}>Send your message !</div>
+                <div className={styles.title}>Upload your message 🔥</div>
                 <textarea
                     name="text"
                     placeholder="text"
@@ -19,10 +19,10 @@ export default function SendMessageForm({ sendMessage }) {
                 <div className={styles.button}>
                     <button
                         onClick={() => {
-                            sendMessage(textValue);
+                            uploadPost(textValue);
                         }}
                     >
-                        send{" "}
+                        Post{" "}
                     </button>
                 </div>
             </div>
