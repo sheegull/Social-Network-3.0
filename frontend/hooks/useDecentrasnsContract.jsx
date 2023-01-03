@@ -64,7 +64,9 @@ export const useDecentrasnsContract = ({ currentAccount }) => {
     async function uploadPost({ text }) {
         if (!decentrasnsContract) return;
         try {
-            const txn = await decentrasnsContract.uploadPost(text);
+            const txn = await decentrasnsContract.uploadPost(text, {
+                gasLimit: 300000,
+            });
             console.log("Processing...", txn.hash);
             setIsLoading(true);
             await txn.wait();
