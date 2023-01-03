@@ -58,7 +58,7 @@ export const useDecentrasnsContract = ({ currentAccount }) => {
         getDecentrasnsContract();
         getAllPosts();
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [currentAccount, ethereum]);
+    }, [currentAccount]);
 
     // 新規投稿
     async function uploadPost({ text }) {
