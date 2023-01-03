@@ -6,12 +6,10 @@ const contractAddress = "0xB66e3Ed7F536F9Bcf19DBFbA9f396B9844499Fc7";
 const contractABI = ABI.abi;
 
 export const useDecentrasnsContract = ({ currentAccount }) => {
-    // txの処理中のフラグを表す状態変数。
     const [isLoading, setIsLoading] = useState(false);
-    // contractのオブジェクトを格納する状態変数。
     const [decentrasnsContract, setDecentrasnsContract] = useState();
-    // postを配列で保持する状態変数。
-    const [posts, setPosts] = useState([]);
+    // 全てのpostを配列で保持する状態変数。
+    const [allPosts, setAllPosts] = useState([]);
 
     // contract呼び出し
     function getDecentrasnsContract() {
@@ -35,25 +33,32 @@ export const useDecentrasnsContract = ({ currentAccount }) => {
         }
     }
 
-    // 全post取得
+    // 全てのpost取得
     async function getAllPosts() {
         if (!decentrasnsContract) return;
         try {
-            const AllPosts = await decentrasnsContract.getAllPosts();
-            const postsCleaned = AllPosts.map((post) => {
+            const posts = await decentrasnsContract.getAllPosts();
+            // 画面表示のため整理
+            const postsCleaned = posts.map((post) => {
                 return {
-                    id: post.id,
+                    id: post.id.toNumber(),
                     text: post.text,
                     from: post.from,
                     timestamp: post.timestamp,
-                    likeCount: post.likeCount,
+                    likeCount: post.likeCount.toNumber(),
                 };
             });
-            setPosts(postsCleaned);
+            setAllPosts(postsCleaned);
         } catch (error) {
             console.log(error);
         }
     }
+
+    useEffect(() => {
+        getDecentrasnsContract();
+        getAllPosts();
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [currentAccount, ethereum]);
 
     // 新規投稿
     async function uploadPost({ text }) {
@@ -70,50 +75,40 @@ export const useDecentrasnsContract = ({ currentAccount }) => {
         }
     }
 
+    // 新規Post追加状況を監視
     useEffect(() => {
-        getDecentrasnsContract();
-        getAllPosts();
+        const onNewPosted = (id, text, from, timestamp, likeCount) => {
+            console.log("NewPosted", id, text, from, timestamp, likeCount);
+            // eventから渡されたNewPostのデータを追加
+            setAllPosts((prevState) => [
+                ...prevState,
+                {
+                    id: id.toNumber(),
+                    text: text,
+                    from: from,
+                    timestamp: timestamp,
+                    likeCount: likeCount.toNumber(),
+                },
+            ]);
+        };
+
+        // イベントリスナの登録
+        if (decentrasnsContract) {
+            decentrasnsContract.on("NewPosted", onNewPosted);
+        }
+
+        // イベントリスナの登録を解除
+        return () => {
+            if (decentrasnsContract) {
+                decentrasnsContract.off("NewPosted", onNewPosted);
+            }
+        };
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [currentAccount, ethereum]);
-
-    // useEffect(() => {
-    //     // NewMessageのイベントリスナ
-    //     const onNewMessage = (sender, receiver, depositInWei, timestamp, text, isPending) => {
-    //         console.log("NewMessage from %s to %s", sender, receiver);
-    //         // 自分宛のメッセージの場合setPostsを編集します。
-    //         // 各APIの使用によりアドレス英字が大文字小文字の違いが出る場合がありますが, その違いはアドレス値において区別されません。
-    //         if (receiver.toLocaleLowerCase() === currentAccount) {
-    //             setPosts((prevState) => [
-    //                 ...prevState,
-    //                 {
-    //                     sender: sender,
-    //                     receiver: receiver,
-    //                     depositInWei: depositInWei,
-    //                     timestamp: new Date(timestamp.toNumber() * 1000),
-    //                     text: text,
-    //                     isPending: isPending,
-    //                 },
-    //             ]);
-    //         }
-    //     };
-
-    //     /* イベントリスナの登録をします */
-    //     if (decentrasnsContract) {
-    //         decentrasnsContract.on("NewMessage", onNewMessage);
-    //     }
-
-    //     /* イベントリスナの登録を解除します */
-    //     return () => {
-    //         if (decentrasnsContract) {
-    //             decentrasnsContract.off("NewMessage", onNewMessage);
-    //         }
-    //     };
-    //     // eslint-disable-next-line react-hooks/exhaustive-deps
-    // }, [decentrasnsContract]);
+    }, [decentrasnsContract]);
 
     return {
         isLoading,
-        posts,
+        allPosts,
         uploadPost,
     };
 };
