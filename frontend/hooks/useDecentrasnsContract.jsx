@@ -12,7 +12,8 @@ export const useDecentrasnsContract = ({ currentAccount }) => {
     const [allPosts, setAllPosts] = useState([]);
     // 全てのいいねがされたpostを保持する状態変数
     const [likePosts, setLikePosts] = useState([]);
-    const [isSorted, setIsSorted] = useState(false);
+    const [timeIsSorted, setTimeIsSorted] = useState(false);
+    const [likeIsSorted, setLikeIsSorted] = useState(false);
 
     // contract呼び出し
     function getDecentrasnsContract() {
@@ -57,9 +58,28 @@ export const useDecentrasnsContract = ({ currentAccount }) => {
         }
     }
 
+    // いいねされている全てのpost取得
+    // async function getLikesPost(postId) {
+    //     if (!decentrasnsContract) return;
+    //     try {
+    //         const likes = await decentrasnsContract.getLikesPost(postId);
+    //         // 画面表示のため整理
+    //         const likesCleaned = likes.map((like) => {
+    //             return {
+    //                 from: like.from,
+    //                 isLiked: like.isLiked,
+    //             };
+    //         });
+    //         setLikePosts(likesCleaned);
+    //     } catch (error) {
+    //         console.log(error);
+    //     }
+    // }
+
     useEffect(() => {
         getDecentrasnsContract();
         getAllPosts();
+        // getLikesPost();
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [currentAccount]);
 
@@ -103,12 +123,12 @@ export const useDecentrasnsContract = ({ currentAccount }) => {
     // アップロード時間順にソート
     async function sortByTimestamp() {
         const result = allPosts.sort(function (a, b) {
-            if (!isSorted) {
-                setIsSorted(true);
-                return a.timestamp > b.timestamp ? 1 : -1;
-            } else {
-                setIsSorted(false);
+            if (!timeIsSorted) {
+                setTimeIsSorted(true);
                 return a.timestamp < b.timestamp ? 1 : -1;
+            } else {
+                setTimeIsSorted(false);
+                return a.timestamp > b.timestamp ? 1 : -1;
             }
         });
         setAllPosts(result);
@@ -117,11 +137,11 @@ export const useDecentrasnsContract = ({ currentAccount }) => {
     // いいね数順にソート
     async function sortByLike() {
         const result = allPosts.sort(function (a, b) {
-            if (!isSorted) {
-                setIsSorted(true);
+            if (!likeIsSorted) {
+                setLikeIsSorted(true);
                 return a.likeCount > b.likeCount ? 1 : -1;
             } else {
-                setIsSorted(false);
+                setLikeIsSorted(false);
                 return a.likeCount < b.likeCount ? 1 : -1;
             }
         });
