@@ -21,7 +21,15 @@ const style = {
 
 const Home = () => {
     const { currentAccount, connectWallet } = useWallet();
-    const { isLoading, allPosts, likePosts, uploadPost, changeLikePost } = useDecentrasnsContract({
+    const {
+        isLoading,
+        allPosts,
+        likePosts,
+        uploadPost,
+        changeLikePost,
+        sortByTimestamp,
+        sortByLike,
+    } = useDecentrasnsContract({
         currentAccount,
     });
 
@@ -47,16 +55,17 @@ const Home = () => {
                                 }}
                             />
                         )}
-                        {/* {currentAccount && (
+                        {currentAccount && (
                             <div className="sort">
-                                <button className="sortButton" onClick={""}>
-                                    sort Date
+                                <button className="sortButton" onClick={sortByTimestamp}>
+                                    sort Timestamp
                                 </button>
-                                <button className="sortButton" onClick={""}>
+                                <br />
+                                <button className="sortButton" onClick={sortByLike}>
                                     sort LikeCount
                                 </button>
                             </div>
-                        )} */}
+                        )}
                         {currentAccount &&
                             allPosts
                                 .slice(0)
