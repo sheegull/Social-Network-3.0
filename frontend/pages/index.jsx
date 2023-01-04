@@ -5,7 +5,7 @@ import Layout from "../components/layout/Layout";
 import RequireWallet from "../components/layout/RequireWallet";
 import { useWallet } from "../hooks/useWallet";
 import { useDecentrasnsContract } from "../hooks/useDecentrasnsContract";
-import PostBox from "../components/form/PostBox";
+import PostBox from "../components/Form/PostBox";
 import { HiOutlineHeart } from "react-icons/hi2";
 import SideBar from "../components/Sidebar/Sidebar";
 import ChannelBar from "../components/ChannelBar/ChannelBar";

@@ -1,5 +1,9 @@
 import TopNav from "../TopNav/TopNav";
+import PostBox from "../Form/PostBox";
 import { BsPlusCircleFill } from "react-icons/bs";
+import { useState } from "react";
+import { useWallet } from "../../hooks/useWallet";
+import { useDecentrasnsContract } from "../../hooks/useDecentrasnsContract";
 
 const Feed = () => {
     return (
@@ -59,17 +63,10 @@ const Feed = () => {
           ipsum dolor sit amet consectetur adipisicing elit.`}
                 />
             </div>
-            <BottomBar />
+            {/* <PostBox /> */}
         </div>
     );
 };
-
-const BottomBar = () => (
-    <div className="bottom-bar">
-        <PlusIcon />
-        <input type="text" placeholder="Enter message..." className="bottom-bar-input" />
-    </div>
-);
 
 const Post = ({ name, timestamp, text }) => {
     const seed = Math.round(Math.random() * 100);
@@ -95,7 +92,7 @@ const Post = ({ name, timestamp, text }) => {
 };
 
 const PlusIcon = () => (
-    <BsPlusCircleFill size="22" className="text-yellow-600 shadow-lg mx-2 text-primary" />
+    <BsPlusCircleFill size="22" className="text-yellow-500 shadow-lg mx-2 text-primary" />
 );
 
 export default Feed;
