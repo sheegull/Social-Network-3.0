@@ -3,7 +3,7 @@ import { BsHash } from "react-icons/bs";
 import { FaChevronDown, FaChevronRight, FaPlus } from "react-icons/fa";
 
 const topics = ["tailwind-css", "react"];
-const questions = ["jit-compilation", "purge-files", "dark-mode"];
+const questions = ["jit-compilation", "purge-files"];
 const random = ["variants", "plugins"];
 
 const ChannelBar = () => {
@@ -56,7 +56,7 @@ const TopicSelection = ({ selection }) => (
 
 const ChannelBlock = () => (
     <div className="channel-block">
-        <h5 className="channel-block-text">Channels</h5>
+        <h5 className="channel-block-text">actions</h5>
     </div>
 );
 
