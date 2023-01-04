@@ -108,9 +108,27 @@ export const useDecentrasnsContract = ({ currentAccount }) => {
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [decentrasnsContract]);
 
+    // いいね機能
+    async function changeLikePost(postId) {
+        if (!decentrasnsContract) return;
+        try {
+            const txn = await decentrasnsContract.changeLikePost(postId, {
+                gasLimit: 300000,
+            });
+            console.log("Processing...", txn.hash);
+            setIsLoading(true);
+            await txn.wait();
+            console.log("Done -- ", txn.hash);
+            setIsLoading(false);
+        } catch (error) {
+            console.log(error);
+        }
+    }
+
     return {
         isLoading,
         allPosts,
         uploadPost,
+        changeLikePost,
     };
 };
