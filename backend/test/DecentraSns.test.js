@@ -34,10 +34,6 @@ describe("decentrasns", function () {
             const { blockTimestamp } = await loadFixture(getTimestamp);
 
             // TEST #1 by owner
-            // await expect(decentrasns.uploadPost("hello world!"))
-            //     .to.emit(decentrasns, "NewPosted")
-            //     .withArgs(1, "hello world!", owner.address, blockTimestamp, 0);
-
             let tx = await decentrasns.uploadPost("hello world!");
             await tx.wait();
 
@@ -52,8 +48,11 @@ describe("decentrasns", function () {
             // await expect(await post.timestamp).to.equal(blockTimestamp);
 
             // TEST #2 by user1
-            tx = await decentrasns.connect(user1).uploadPost("new world!");
-            await tx.wait();
+            // check emit test
+            await expect(decentrasns.connect(user1).uploadPost("new world!")).to.emit(
+                decentrasns,
+                "NewPosted"
+            );
 
             postCount = await decentrasns.postCount();
             expect(postCount).to.equal(2);
@@ -64,10 +63,6 @@ describe("decentrasns", function () {
             expect(post.from).to.equal(user1.address);
             expect(post.likeCount).to.equal(0);
             // expect(post.timestamp).to.equal(Date.now());
-
-            // await expect(tx)
-            //     .to.emit(decentrasns, "NewPosted")
-            //     .withArgs(2, "new world!", user1.address, Date.now(), 0);
         });
     });
 
@@ -90,21 +85,6 @@ describe("decentrasns", function () {
             expect(post.text).to.equal("hello world!");
             expect(post.from).to.equal(user1.address);
             expect(post.likeCount).to.equal(0);
-
-            // 投稿した本人がいいねした場合
-            // await expect(await decentrasns.connect(user1).changeLikePost(postCount)).to.be.reverted;
-
-            // post = await decentrasns.posts(postCount);
-            // expect(post.id).to.equal(1);
-            // expect(post.likeCount).to.equal(1);
-
-            // // removeLike test
-            // let removeLike = await decentrasns.changeLikePost(postCount);
-            // await removeLike.wait();
-
-            // post = await decentrasns.posts(postCount);
-            // expect(post.id).to.equal(1);
-            // expect(post.likeCount).to.equal(0);
         });
 
         it("Should add/remove like", async function () {
