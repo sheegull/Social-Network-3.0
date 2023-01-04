@@ -52,14 +52,6 @@ export const useDecentrasnsContract = ({ currentAccount }) => {
                 };
             });
             setAllPosts(postsCleaned);
-            // likes 作ってぶちこむ
-            // const likesCleaned = likePosts.map((like) => {
-            //     return {
-            //         from: like.from,
-            //         isLiked: like.isLiked,
-            //     };
-            // });
-            // setLikePosts(likesCleaned);
         } catch (error) {
             console.log(error);
         }
@@ -85,10 +77,13 @@ export const useDecentrasnsContract = ({ currentAccount }) => {
 
     useEffect(() => {
         getDecentrasnsContract();
-        getAllPosts();
-        // getLikesPost();
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [currentAccount]);
+
+    useEffect(() => {
+        getAllPosts();
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [currentAccount, likePosts]);
 
     // 新規投稿
     async function uploadPost({ text }) {
@@ -119,8 +114,6 @@ export const useDecentrasnsContract = ({ currentAccount }) => {
             await txn.wait();
             console.log("Done -- ", txn.hash);
             setIsLoading(false);
-            // TODO: fix
-            // await window.location.reload();
         } catch (error) {
             console.log(error);
         }
