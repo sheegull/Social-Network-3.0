@@ -8,9 +8,9 @@ const contractABI = ABI.abi;
 export const useDecentrasnsContract = ({ currentAccount }) => {
     const [isLoading, setIsLoading] = useState(false);
     const [decentrasnsContract, setDecentrasnsContract] = useState();
-    // 全てのpostを配列で保持する状態変数。
+    // 全てのpostを配列で保持する状態変数
     const [allPosts, setAllPosts] = useState([]);
-    // 全てのいいねがされたpostを保持する状態変数。
+    // 全てのいいねがされたpostを保持する状態変数
     const [likePosts, setLikePosts] = useState([]);
 
     // contract呼び出し
@@ -92,10 +92,27 @@ export const useDecentrasnsContract = ({ currentAccount }) => {
             setLikePosts();
             console.log("Done -- ", txn.hash);
             setIsLoading(false);
+            // TODO: fix
             await window.location.reload();
         } catch (error) {
             console.log(error);
         }
+    }
+
+    // アップロード時間順にソート
+    async function sortByTimestamp() {
+        const result = allPosts.sort(function (a, b) {
+            return a.timestamp > b.timestamp ? 1 : -1;
+        });
+        setAllPosts(result);
+    }
+
+    // いいね数順にソート
+    async function sortByLike() {
+        const result = allPosts.sort(function (a, b) {
+            return a.likeCount > b.likeCount ? 1 : -1;
+        });
+        setAllPosts(result);
     }
 
     // 新規Post追加状況を監視
@@ -115,6 +132,7 @@ export const useDecentrasnsContract = ({ currentAccount }) => {
             ]);
         };
 
+        // fix bug
         // const onLikePost = (postId, isLiked) => {
         //     console.log("LikePost", postId, isLiked);
         //     // eventから渡されたLikePostのデータを追加
@@ -149,5 +167,7 @@ export const useDecentrasnsContract = ({ currentAccount }) => {
         likePosts,
         uploadPost,
         changeLikePost,
+        sortByTimestamp,
+        sortByLike,
     };
 };
