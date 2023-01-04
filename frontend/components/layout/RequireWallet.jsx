@@ -27,7 +27,13 @@ export default function RequireWallet({ children, currentAccount, connectWallet 
                 </div>
             ) : (
                 <div className={style.loginContainer}>
-                    <Image alt="metamask" src={metamaskLogo} width={200} height={200} />
+                    <Image
+                        alt="metamask"
+                        src={metamaskLogo}
+                        width={200}
+                        height={200}
+                        priority={true}
+                    />
                     <div className={style.connectWalletButton} onClick={() => connectWallet()}>
                         Connect Wallet
                     </div>
