@@ -54,7 +54,7 @@ const Home = () => {
                         </div>
                         <div className="bio">D-SNSにあなたのメッセージを記録しよう!!</div>
                         <br />
-                        {isLoading ? (
+                        {/* {isLoading ? (
                             <div>Loading...</div>
                         ) : (
                             <PostBox
@@ -62,7 +62,7 @@ const Home = () => {
                                     uploadPost({ text });
                                 }}
                             />
-                        )}
+                        )} */}
                         {currentAccount && (
                             <div className="sort">
                                 <button className="sortButton" onClick={sortByTimestamp}>

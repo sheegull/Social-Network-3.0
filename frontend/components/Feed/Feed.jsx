@@ -1,11 +1,23 @@
 import TopNav from "../TopNav/TopNav";
 import PostBox from "../Form/PostBox";
-import { BsPlusCircleFill } from "react-icons/bs";
 import { useState } from "react";
 import { useWallet } from "../../hooks/useWallet";
 import { useDecentrasnsContract } from "../../hooks/useDecentrasnsContract";
 
 const Feed = () => {
+    const { currentAccount, connectWallet } = useWallet();
+    const {
+        isLoading,
+        allPosts,
+        likePosts,
+        uploadPost,
+        changeLikePost,
+        sortByTimestamp,
+        sortByLike,
+    } = useDecentrasnsContract({
+        currentAccount,
+    });
+
     return (
         <div className="content-container">
             <TopNav />
@@ -63,7 +75,11 @@ const Feed = () => {
           ipsum dolor sit amet consectetur adipisicing elit.`}
                 />
             </div>
-            {/* <PostBox /> */}
+            <PostBox
+                uploadPost={(text) => {
+                    uploadPost({ text });
+                }}
+            />
         </div>
     );
 };
@@ -90,9 +106,5 @@ const Post = ({ name, timestamp, text }) => {
         </div>
     );
 };
-
-const PlusIcon = () => (
-    <BsPlusCircleFill size="22" className="text-yellow-500 shadow-lg mx-2 text-primary" />
-);
 
 export default Feed;
