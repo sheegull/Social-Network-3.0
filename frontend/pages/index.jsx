@@ -6,6 +6,7 @@ import RequireWallet from "../components/layout/RequireWallet";
 import { useWallet } from "../hooks/useWallet";
 import { useDecentrasnsContract } from "../hooks/useDecentrasnsContract";
 import PostBox from "../components/form/PostBox";
+import { HiOutlineHeart } from "react-icons/hi2";
 
 const style = {
     wrapper: `flex h-screen w-screen overflow-hidden select-none bg-[#121212] text-[#f2f2f2] font-light`,
@@ -20,7 +21,9 @@ const style = {
 
 const Home = () => {
     const { currentAccount, connectWallet } = useWallet();
-    const { isLoading, allPosts, uploadPost } = useDecentrasnsContract({ currentAccount });
+    const { isLoading, allPosts, uploadPost, changeLikePost } = useDecentrasnsContract({
+        currentAccount,
+    });
 
     return (
         <Layout home>
@@ -88,40 +91,29 @@ const Home = () => {
                                                     )}
                                             </div>
                                             <div className="text">Text:{post.text}</div>
-                                            {/* <div>
+                                            <div>
                                                 {!post.likeFlag ? (
-                                                    <IconButton
+                                                    <button
                                                         aria-label="favorite"
                                                         size="small"
                                                         color="primary"
-                                                        onClick={() => like(post.postId)}
+                                                        onClick={() => changeLikePost(post.id)}
                                                     >
-                                                        <FavoriteBorderIcon />
-                                                        {post.likes}
-                                                    </IconButton>
+                                                        <HiOutlineHeart />
+                                                        {post.likeCount}
+                                                    </button>
                                                 ) : (
-                                                    <IconButton
+                                                    <button
                                                         aria-label="favorite"
                                                         size="small"
                                                         color="secondary"
-                                                        onClick={() => unlike(post.postId)}
+                                                        onClick={() => changeLikePost(post.id)}
                                                     >
-                                                        <FavoriteBorderIcon />
-                                                        {post.likes}
-                                                    </IconButton>
+                                                        <HiOutlineHeart />
+                                                        {post.likeCount}
+                                                    </button>
                                                 )}
                                             </div>
-                                            <div>
-                                                <IconButton
-                                                    aria-label="favorite"
-                                                    size="small"
-                                                    color="primary"
-                                                    onClick={() => tip(post.address)}
-                                                >
-                                                    <PaymentIcon />
-                                                    Tip
-                                                </IconButton>
-                                            </div> */}
                                         </div>
                                     );
                                 })}
