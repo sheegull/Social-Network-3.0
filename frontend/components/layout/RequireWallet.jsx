@@ -19,10 +19,10 @@ export default function RequireWallet({ children, currentAccount, connectWallet 
         <div>
             {currentAccount ? (
                 <div>
-                    <div className={styles.wallet}>
+                    {/* <div className={styles.wallet}>
                         <p className={styles.title}>wallet: </p>
                         <p>{currentAccount}</p>
-                    </div>
+                    </div> */}
                     {children}
                 </div>
             ) : (
