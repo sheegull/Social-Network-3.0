@@ -8,6 +8,7 @@ import { useDecentrasnsContract } from "../hooks/useDecentrasnsContract";
 import PostBox from "../components/form/PostBox";
 import { HiOutlineHeart } from "react-icons/hi2";
 import SideBar from "../components/Sidebar/Sidebar";
+import ChannelBar from "../components/ChannelBar/ChannelBar";
 import Feed from "../components/Feed/Feed";
 
 const style = {
@@ -40,6 +41,7 @@ const Home = () => {
             <RequireWallet currentAccount={currentAccount} connectWallet={connectWallet}>
                 <div className="flex">
                     <SideBar />
+                    <ChannelBar />
                     <Feed />
                 </div>
                 <div className="mainContainer">
