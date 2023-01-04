@@ -57,7 +57,7 @@
         @apply text-gray-500
     mr-3 ml-4
     transition duration-300 ease-in-out
-    hover:text-pink-400
+    hover:text-purple-400
     cursor-pointer;
     }
 
@@ -78,7 +78,7 @@
 
     .search {
         @apply w-1/5 flex items-center justify-start
-    bg-gray-400 dark:bg-gray-600
+    bg-gray-600
     text-gray-500
     px-2 h-9 ml-0 mr-0
     rounded-md shadow-md
@@ -94,7 +94,7 @@
 
     .content-container {
         @apply flex flex-col
-    bg-gray-300 dark:bg-gray-700
+    bg-gray-700
     m-0
     h-full w-full
     overflow-hidden;
@@ -115,7 +115,7 @@
     }
 
     .post-selected {
-        @apply bg-green-400 dark:bg-gray-900
+        @apply bg-gray-900
     shadow-md;
     }
 
@@ -126,12 +126,12 @@
     }
 
     .post-text {
-        @apply text-lg text-left text-gray-800 dark:text-white
+        @apply text-lg text-left text-white
     mr-auto whitespace-normal;
     }
 
     .post-owner {
-        @apply text-left font-semibold text-gray-800 dark:text-white mr-2 cursor-pointer;
+        @apply text-left font-semibold text-white mr-2 cursor-pointer;
     }
 
     .avatar-wrapper {
@@ -150,14 +150,14 @@
     }
 
     .timestamp {
-        @apply text-xs text-left font-semibold text-gray-500 dark:text-gray-600 ml-2;
+        @apply text-xs text-left font-semibold text-gray-600 ml-2;
     }
 
     .bottom-bar {
         @apply flex flex-row items-center justify-between
     fixed left-88 right-8 bottom-2
     rounded-lg shadow-lg
-    bg-gray-400 dark:bg-gray-600 px-2
+    bg-gray-600 px-2
     h-12;
     }
 
@@ -165,13 +165,13 @@
         @apply font-semibold w-full
     bg-transparent outline-none
     ml-0 mr-auto
-    text-gray-500  dark:text-gray-400 placeholder-gray-500
+    text-gray-400 placeholder-gray-500
     cursor-text;
     }
 
     .channel-bar {
         @apply w-80 h-auto m-0 ml-16 bg-gray-800
-     overflow-hidden;
+    overflow-hidden;
     }
 
     .channel-container {

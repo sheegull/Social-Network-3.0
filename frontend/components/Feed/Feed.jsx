@@ -1,6 +1,5 @@
 import TopNav from "../TopNav/TopNav";
 import { BsPlusCircleFill } from "react-icons/bs";
-// import { useState } from 'react';
 
 const Feed = () => {
     return (
@@ -96,7 +95,7 @@ const Post = ({ name, timestamp, text }) => {
 };
 
 const PlusIcon = () => (
-    <BsPlusCircleFill size="22" className="text-green-500 dark:shadow-lg mx-2 dark:text-primary" />
+    <BsPlusCircleFill size="22" className="text-yellow-600 shadow-lg mx-2 text-primary" />
 );
 
 export default Feed;
