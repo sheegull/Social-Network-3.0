@@ -92,6 +92,7 @@ export const useDecentrasnsContract = ({ currentAccount }) => {
             setLikePosts();
             console.log("Done -- ", txn.hash);
             setIsLoading(false);
+            await window.location.reload();
         } catch (error) {
             console.log(error);
         }
@@ -114,29 +115,29 @@ export const useDecentrasnsContract = ({ currentAccount }) => {
             ]);
         };
 
-        const onLikePost = (postId, isLiked) => {
-            console.log("LikePost", postId, isLiked);
-            // eventから渡されたLikePostのデータを追加
-            setLikePosts((prevState) => [
-                ...prevState,
-                {
-                    postId: postId.toNumber(),
-                    isLiked: isLiked,
-                },
-            ]);
-        };
+        // const onLikePost = (postId, isLiked) => {
+        //     console.log("LikePost", postId, isLiked);
+        //     // eventから渡されたLikePostのデータを追加
+        //     setLikePosts((prevState) => [
+        //         ...prevState,
+        //         {
+        //             postId: postId.toNumber(),
+        //             isLiked: isLiked,
+        //         },
+        //     ]);
+        // };
 
         // イベントリスナの登録
         if (decentrasnsContract) {
             decentrasnsContract.on("NewPosted", onNewPosted);
-            decentrasnsContract.on("LikePost", onLikePost);
+            // decentrasnsContract.on("LikePost", onLikePost);
         }
 
         // イベントリスナの登録を解除
         return () => {
             if (decentrasnsContract) {
                 decentrasnsContract.off("NewPosted", onNewPosted);
-                decentrasnsContract.off("LikePost", onLikePost);
+                // decentrasnsContract.off("LikePost", onLikePost);
             }
         };
         // eslint-disable-next-line react-hooks/exhaustive-deps
