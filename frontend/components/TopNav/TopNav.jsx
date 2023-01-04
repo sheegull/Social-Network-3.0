@@ -1,5 +1,4 @@
-import { FaSearch, FaHashtag, FaRegBell, FaUserCircle, FaMoon, FaSun } from "react-icons/fa";
-// import useDarkMode from "../../hooks/useDarkMode";
+import { FaSearch, FaHashtag, FaRegBell, FaUserCircle, FaMoon } from "react-icons/fa";
 
 const TopNav = () => {
     return (
@@ -15,8 +14,6 @@ const TopNav = () => {
 };
 
 const ThemeIcon = () => {
-    // const [darkTheme, setDarkTheme] = useDarkMode();
-    // const handleMode = () => setDarkTheme(!darkTheme);
     return (
         <span onClick={""}>
             <FaMoon size="24" className="top-navigation-icon" />
@@ -33,6 +30,6 @@ const Search = () => (
 const BellIcon = () => <FaRegBell size="24" className="top-navigation-icon" />;
 const UserCircle = () => <FaUserCircle size="24" className="top-navigation-icon" />;
 const HashtagIcon = () => <FaHashtag size="20" className="title-hashtag" />;
-const Title = () => <h5 className="title-text">tailwind-css</h5>;
+const Title = () => <h5 className="title-text">Global</h5>;
 
 export default TopNav;
