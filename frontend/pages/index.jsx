@@ -21,7 +21,7 @@ const style = {
 
 const Home = () => {
     const { currentAccount, connectWallet } = useWallet();
-    const { isLoading, allPosts, uploadPost, changeLikePost } = useDecentrasnsContract({
+    const { isLoading, allPosts, likePosts, uploadPost, changeLikePost } = useDecentrasnsContract({
         currentAccount,
     });
 

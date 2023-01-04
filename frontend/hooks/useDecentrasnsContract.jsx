@@ -10,6 +10,8 @@ export const useDecentrasnsContract = ({ currentAccount }) => {
     const [decentrasnsContract, setDecentrasnsContract] = useState();
     // 全てのpostを配列で保持する状態変数。
     const [allPosts, setAllPosts] = useState([]);
+    // 全てのいいねがされたpostを保持する状態変数。
+    const [likePosts, setLikePosts] = useState([]);
 
     // contract呼び出し
     function getDecentrasnsContract() {
@@ -77,6 +79,24 @@ export const useDecentrasnsContract = ({ currentAccount }) => {
         }
     }
 
+    // いいね機能
+    async function changeLikePost(postId) {
+        if (!decentrasnsContract) return;
+        try {
+            const txn = await decentrasnsContract.changeLikePost(postId, {
+                gasLimit: 300000,
+            });
+            console.log("Processing...", txn.hash);
+            setIsLoading(true);
+            await txn.wait();
+            setLikePosts();
+            console.log("Done -- ", txn.hash);
+            setIsLoading(false);
+        } catch (error) {
+            console.log(error);
+        }
+    }
+
     // 新規Post追加状況を監視
     useEffect(() => {
         const onNewPosted = (id, text, from, timestamp, likeCount) => {
@@ -94,40 +114,38 @@ export const useDecentrasnsContract = ({ currentAccount }) => {
             ]);
         };
 
+        const onLikePost = (postId, isLiked) => {
+            console.log("LikePost", postId, isLiked);
+            // eventから渡されたLikePostのデータを追加
+            setLikePosts((prevState) => [
+                ...prevState,
+                {
+                    postId: postId.toNumber(),
+                    isLiked: isLiked,
+                },
+            ]);
+        };
+
         // イベントリスナの登録
         if (decentrasnsContract) {
             decentrasnsContract.on("NewPosted", onNewPosted);
+            decentrasnsContract.on("LikePost", onLikePost);
         }
 
         // イベントリスナの登録を解除
         return () => {
             if (decentrasnsContract) {
                 decentrasnsContract.off("NewPosted", onNewPosted);
+                decentrasnsContract.off("LikePost", onLikePost);
             }
         };
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [decentrasnsContract]);
 
-    // いいね機能
-    async function changeLikePost(postId) {
-        if (!decentrasnsContract) return;
-        try {
-            const txn = await decentrasnsContract.changeLikePost(postId, {
-                gasLimit: 300000,
-            });
-            console.log("Processing...", txn.hash);
-            setIsLoading(true);
-            await txn.wait();
-            console.log("Done -- ", txn.hash);
-            setIsLoading(false);
-        } catch (error) {
-            console.log(error);
-        }
-    }
-
     return {
         isLoading,
         allPosts,
+        likePosts,
         uploadPost,
         changeLikePost,
     };
