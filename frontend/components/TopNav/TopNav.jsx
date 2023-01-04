@@ -5,19 +5,10 @@ const TopNav = () => {
         <div className="top-navigation">
             <HashtagIcon />
             <Title />
-            <ThemeIcon />
             <Search />
             <BellIcon />
             <UserCircle />
         </div>
-    );
-};
-
-const ThemeIcon = () => {
-    return (
-        <span onClick={""}>
-            <FaMoon size="24" className="top-navigation-icon" />
-        </span>
     );
 };
 
