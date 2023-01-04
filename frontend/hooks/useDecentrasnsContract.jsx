@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import { ethers } from "ethers";
 import ABI from "../utils/decentrasns.json";
 
-const contractAddress = "0xB66e3Ed7F536F9Bcf19DBFbA9f396B9844499Fc7";
+const contractAddress = "0x2d40126d3d3b897cBC78fd5074f18E87A6B80cf3";
 const contractABI = ABI.abi;
 
 export const useDecentrasnsContract = ({ currentAccount }) => {
@@ -20,7 +20,6 @@ export const useDecentrasnsContract = ({ currentAccount }) => {
         try {
             const { ethereum } = window;
             if (ethereum) {
-                // @ts-ignore: ethereum as ethers.providers.ExternalProvider
                 const provider = new ethers.providers.Web3Provider(ethereum);
                 const signer = provider.getSigner();
                 const DecentrasnsContract = new ethers.Contract(
@@ -54,6 +53,13 @@ export const useDecentrasnsContract = ({ currentAccount }) => {
             });
             setAllPosts(postsCleaned);
             // likes 作ってぶちこむ
+            // const likesCleaned = likePosts.map((like) => {
+            //     return {
+            //         from: like.from,
+            //         isLiked: like.isLiked,
+            //     };
+            // });
+            // setLikePosts(likesCleaned);
         } catch (error) {
             console.log(error);
         }
