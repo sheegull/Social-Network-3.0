@@ -7,6 +7,7 @@ import { useWallet } from "../hooks/useWallet";
 import { useDecentrasnsContract } from "../hooks/useDecentrasnsContract";
 import PostBox from "../components/form/PostBox";
 import { HiOutlineHeart } from "react-icons/hi2";
+import SideBar from "../components/Sidebar/Sidebar";
 
 const style = {
     wrapper: `flex h-screen w-screen overflow-hidden select-none bg-[#121212] text-[#f2f2f2] font-light`,
@@ -36,6 +37,9 @@ const Home = () => {
     return (
         <Layout home>
             <RequireWallet currentAccount={currentAccount} connectWallet={connectWallet}>
+                <div className="flex">
+                    <SideBar />
+                </div>
                 <div className="mainContainer">
                     <div className="dataContainer">
                         <div className="header">
