@@ -2,18 +2,18 @@ import { useState } from "react";
 import { BsHash } from "react-icons/bs";
 import { FaChevronDown, FaChevronRight, FaPlus } from "react-icons/fa";
 
-const topics = ["tailwind-css", "react"];
-const questions = ["jit-compilation", "purge-files"];
-const random = ["variants", "plugins"];
+const sort = ["sortByDate", "sortByLike"];
+const tip = ["send", "receive"];
+const bookmark = ["UNCHAIN", "STAR PASS"];
 
 const ChannelBar = () => {
     return (
         <div className="channel-bar shadow-lg">
             <ChannelBlock />
             <div className="channel-container">
-                <Dropdown header="Topics" selections={topics} />
-                <Dropdown header="Questions" selections={questions} />
-                <Dropdown header="Random" selections={random} />
+                <Dropdown header="Sort" selections={sort} />
+                <Dropdown header="Tip" selections={tip} />
+                <Dropdown header="Bookmark" selections={bookmark} />
             </div>
         </div>
     );
@@ -34,7 +34,7 @@ const Dropdown = ({ header, selections }) => {
             {expanded &&
                 selections &&
                 selections.map((selection, index) => (
-                    <TopicSelection selection={selection} key={index} />
+                    <ActionSelection selection={selection} key={index} />
                 ))}
         </div>
     );
@@ -49,7 +49,7 @@ const ChevronIcon = ({ expanded }) => {
     );
 };
 
-const TopicSelection = ({ selection }) => (
+const ActionSelection = ({ selection }) => (
     <div className="dropdown-selection">
         <BsHash size="24" className="text-gray-400" />
         <h5 className="dropdown-selection-text">{selection}</h5>
