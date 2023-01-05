@@ -110,8 +110,7 @@
     .post {
         @apply w-full
     flex flex-row items-center justify-evenly
-    py-4 px-8 m-0
-    cursor-pointer;
+    py-4 px-8 m-0;
     }
 
     .post-selected {
@@ -126,18 +125,18 @@
     }
 
     .post-text {
-        @apply text-lg text-left text-white
+        @apply text-lg text-left text-white h-16
     mr-auto whitespace-normal;
     }
 
     .post-owner {
-        @apply text-left font-semibold text-white mr-2 cursor-pointer;
+        @apply text-left font-semibold text-purple-400 mr-2 h-10;
     }
 
     .avatar-wrapper {
         @apply flex flex-col items-center
     w-12
-    m-0 ml-auto mb-auto;
+    mt-auto  m-0 ml-auto mb-auto;
     }
 
     .avatar {
