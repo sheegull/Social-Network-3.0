@@ -107,6 +107,37 @@
     overflow-y-scroll;
     }
 
+    .sort-content {
+        @apply relative flex items-center justify-end mt-5 mb-10;
+    }
+
+    .sort-date-button {
+        @apply relative flex items-center justify-center
+    h-12 w-20 mt-2 mb-2 mr-3 ml-auto
+    hover:bg-yellow-600 bg-gray-800
+    text-yellow-500 hover:text-white
+    hover:rounded-xl rounded-3xl
+    transition-all duration-300 ease-linear
+    cursor-pointer shadow-lg;
+    }
+
+    .sort-like-button {
+        @apply relative flex items-center justify-center
+    h-12 w-20 mt-2 mb-2 mx-auto
+    hover:bg-yellow-600 bg-gray-800
+    text-yellow-500 hover:text-white
+    hover:rounded-xl rounded-3xl
+    transition-all duration-300 ease-linear
+    cursor-pointer shadow-lg;
+    }
+
+    .sort-tooltip {
+        @apply absolute w-auto p-2 m-2 min-w-max top-14 rounded-md shadow-md
+    text-white bg-gray-900
+    text-xs font-bold
+    transition-all duration-100 scale-0 origin-left;
+    }
+
     .post {
         @apply w-full
     flex flex-row items-center justify-evenly

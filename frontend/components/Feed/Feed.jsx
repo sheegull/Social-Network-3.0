@@ -1,6 +1,9 @@
 import TopNav from "../TopNav/TopNav";
 import PostBox from "../Form/PostBox";
+import { IoTime } from "react-icons/io5";
+import { BiSort } from "react-icons/bi";
 import { HiOutlineHeart } from "react-icons/hi2";
+import { MdFavorite } from "react-icons/md";
 
 import { useState } from "react";
 import { useWallet } from "../../hooks/useWallet";
@@ -25,13 +28,19 @@ const Feed = () => {
             <TopNav />
             <div className="content-list">
                 {currentAccount && (
-                    <div className="sort">
-                        <button className="sortButton" onClick={sortByTimestamp}>
-                            sort Timestamp
+                    <div className="sort-content">
+                        <button onClick={sortByTimestamp}>
+                            <SortByTimestampIcon
+                                icon={<IoTime size="20" />}
+                                icon2={<BiSort size="20" />}
+                            />
                         </button>
                         <br />
-                        <button className="sortButton" onClick={sortByLike}>
-                            sort LikeCount
+                        <button onClick={sortByLike}>
+                            <SortByLikeIcon
+                                icon={<MdFavorite size="20" />}
+                                icon2={<BiSort size="20" />}
+                            />
                         </button>
                     </div>
                 )}
@@ -106,6 +115,20 @@ const Post = ({ id, address, timestamp, text, likeCount }) => {
     );
 };
 
+const SortByTimestampIcon = ({ icon, icon2, text = "Sort By Date" }) => (
+    <div className="sort-date-button group">
+        {icon}
+        {icon2}
+        <span className="sort-tooltip group-hover:scale-100">{text}</span>
+    </div>
+);
+const SortByLikeIcon = ({ icon, icon2, text = "Sort By Like" }) => (
+    <div className="sort-like-button group">
+        {icon}
+        {icon2}
+        <span className="sort-tooltip group-hover:scale-100">{text}</span>
+    </div>
+);
 const LikeIcon = ({ icon }) => <div className="like-icon group">{icon}</div>;
 
 export default Feed;
