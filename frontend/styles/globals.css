@@ -178,7 +178,7 @@
     rounded-lg shadow-lg
     text-black bg-yellow-500
     hover:bg-yellow-600 hover:text-white
-    transition-all duration-100 ease-linear
+    transition-all duration-200 ease-linear
     cursor-pointer
     hover:scale-100
     px-2 h-12
