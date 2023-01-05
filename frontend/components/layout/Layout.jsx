@@ -14,13 +14,13 @@ export default function Layout({ children, home }) {
                 <title>D-SNS</title>
             </Head>
             <main>{children}</main>
-            {!home && (
+            {/* {!home && (
                 <div className={styles.backToHome}>
                     <Link href="/">
                         <div>← Back to home</div>
                     </Link>
                 </div>
-            )}
+            )} */}
         </div>
     );
 }
