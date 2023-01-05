@@ -30,36 +30,40 @@ const Feed = () => {
                         .reverse()
                         .map((post, index) => {
                             return (
-                                <Post
-                                    key={index}
-                                    address={post.from}
-                                    timestamp={new Date(post.timestamp.toNumber().toString() * 1000)
-                                        .toString()
-                                        .substring(
-                                            0,
-                                            new Date(post.timestamp.toNumber().toString() * 1000)
-                                                .toString()
-                                                .indexOf("GMT")
-                                        )}
-                                    text={post.text}
-                                    //     <div>
-                                    //         {currentAccount && (
-                                    //             <button
-                                    //                 aria-label="favorite"
-                                    //                 size="small"
-                                    //                 color="primary"
-                                    //                 onClick={() => changeLikePost(post.id)}
-                                    //             >
-                                    //                 <HiOutlineHeart />
-                                    //                 {post.likeCount}
-                                    //             </button>
-                                    //         )}
-                                    //     </div>
-                                    // </div>
-                                />
+                                <>
+                                    <Post
+                                        key={index}
+                                        id={post.id}
+                                        address={post.from}
+                                        timestamp={new Date(
+                                            post.timestamp.toNumber().toString() * 1000
+                                        )
+                                            .toString()
+                                            .substring(
+                                                0,
+                                                new Date(
+                                                    post.timestamp.toNumber().toString() * 1000
+                                                )
+                                                    .toString()
+                                                    .indexOf("GMT")
+                                            )}
+                                        text={post.text}
+                                        likeCount={post.likeCount}
+                                    />
+                                    <button
+                                        aria-label="favorite"
+                                        size="small"
+                                        color="primary"
+                                        onClick={() => changeLikePost(post.id)}
+                                    >
+                                        <HiOutlineHeart />
+                                        {post.likeCount}
+                                    </button>
+                                </>
                             );
                         })}
             </div>
+
             <PostBox
                 uploadPost={(text) => {
                     uploadPost({ text });
@@ -69,7 +73,7 @@ const Feed = () => {
     );
 };
 
-const Post = ({ address, timestamp, text }) => {
+const Post = ({ id, address, timestamp, text, likeCount }) => {
     const seed = Math.round(Math.random() * 100);
     return (
         <div className={"post"}>
@@ -87,6 +91,8 @@ const Post = ({ address, timestamp, text }) => {
                     <small className="timestamp">{timestamp}</small>
                 </p>
                 <p className="post-text">{text}</p>
+                {/* <HiOutlineHeart /> */}
+                {/* <p>{likeCount}</p> */}
             </div>
         </div>
     );
