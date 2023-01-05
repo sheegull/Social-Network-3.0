@@ -172,7 +172,6 @@
     cursor-text;
     }
 
-    // TODO: putton flex対応
     .post-button {
         @apply flex flex-row flex-auto w-32 items-center justify-between font-bold
     fixed left-400 bottom-2
