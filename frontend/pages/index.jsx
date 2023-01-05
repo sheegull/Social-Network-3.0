@@ -55,17 +55,6 @@ const Home = () => {
                                 }}
                             />
                         )} */}
-                        {currentAccount && (
-                            <div className="sort">
-                                <button className="sortButton" onClick={sortByTimestamp}>
-                                    sort Timestamp
-                                </button>
-                                <br />
-                                <button className="sortButton" onClick={sortByLike}>
-                                    sort LikeCount
-                                </button>
-                            </div>
-                        )}
                     </div>
                 </div>
             </RequireWallet>
