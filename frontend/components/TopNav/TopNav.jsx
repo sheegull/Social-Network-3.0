@@ -1,26 +1,21 @@
-import { FaSearch, FaHashtag, FaRegBell, FaUserCircle, FaMoon } from "react-icons/fa";
+import { FaSearch, FaHashtag, FaUserCircle } from "react-icons/fa";
+import { useWallet } from "../../hooks/useWallet";
 
 const TopNav = () => {
+    const { currentAccount, connectWallet } = useWallet();
     return (
         <div className="top-navigation">
             <HashtagIcon />
             <Title />
-            <Search />
-            <BellIcon />
+            <Address currentAccount={currentAccount} connectWallet={connectWallet} />
             <UserCircle />
         </div>
     );
 };
 
-const Search = () => (
-    <div className="search">
-        <input className="search-input" type="text" placeholder="Search..." />
-        <FaSearch size="18" className="text-secondary my-auto" />
-    </div>
-);
-const BellIcon = () => <FaRegBell size="24" className="top-navigation-icon" />;
-const UserCircle = () => <FaUserCircle size="24" className="top-navigation-icon" />;
-const HashtagIcon = () => <FaHashtag size="20" className="title-hashtag" />;
 const Title = () => <h5 className="title-text">Global</h5>;
+const HashtagIcon = () => <FaHashtag size="20" className="title-hashtag" />;
+const Address = ({ currentAccount }) => <p className="address-text">{currentAccount}</p>;
+const UserCircle = () => <FaUserCircle size="24" className="top-navigation-icon" />;
 
 export default TopNav;

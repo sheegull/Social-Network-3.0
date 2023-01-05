@@ -53,9 +53,13 @@
     shadow-lg;
     }
 
+    .address-text {
+        @apply text-sm font-semibold text-gray-500 mr-2;
+    }
+
     .top-navigation-icon {
         @apply text-gray-500
-    mr-3 ml-4
+    mr-7 ml-3
     transition duration-300 ease-in-out
     hover:text-purple-400
     cursor-pointer;
