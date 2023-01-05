@@ -46,14 +46,6 @@ const Home = () => {
                 </div>
                 <div className="mainContainer">
                     <div className="dataContainer">
-                        <div className="header">
-                            <span role="img" aria-label="hand-wave">
-                                👋
-                            </span>{" "}
-                            WELCOME to Social Network 3.0 !!
-                        </div>
-                        <div className="bio">D-SNSにあなたのメッセージを記録しよう!!</div>
-                        <br />
                         {/* {isLoading ? (
                             <div>Loading...</div>
                         ) : (
