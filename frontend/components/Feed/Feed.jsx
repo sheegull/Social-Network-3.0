@@ -50,15 +50,12 @@ const Feed = () => {
                                         text={post.text}
                                         likeCount={post.likeCount}
                                     />
-                                    <button
-                                        aria-label="favorite"
-                                        size="small"
-                                        color="primary"
-                                        onClick={() => changeLikePost(post.id)}
-                                    >
-                                        <HiOutlineHeart />
-                                        {post.likeCount}
-                                    </button>
+                                    <div className="like-content">
+                                        <button onClick={() => changeLikePost(post.id)}>
+                                            <LikeIcon icon={<HiOutlineHeart size="16" />} />
+                                        </button>
+                                        <div className="like-count">{post.likeCount}</div>
+                                    </div>
                                 </>
                             );
                         })}
@@ -97,5 +94,7 @@ const Post = ({ id, address, timestamp, text, likeCount }) => {
         </div>
     );
 };
+
+const LikeIcon = ({ icon }) => <div className="like-icon group">{icon}</div>;
 
 export default Feed;
