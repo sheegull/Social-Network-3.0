@@ -24,6 +24,17 @@ const Feed = () => {
         <div className="content-container">
             <TopNav />
             <div className="content-list">
+                {currentAccount && (
+                    <div className="sort">
+                        <button className="sortButton" onClick={sortByTimestamp}>
+                            sort Timestamp
+                        </button>
+                        <br />
+                        <button className="sortButton" onClick={sortByLike}>
+                            sort LikeCount
+                        </button>
+                    </div>
+                )}
                 {currentAccount &&
                     allPosts
                         .slice(0)
