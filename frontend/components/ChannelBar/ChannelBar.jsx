@@ -2,18 +2,18 @@ import { useState } from "react";
 import { BsHash } from "react-icons/bs";
 import { FaChevronDown, FaChevronRight, FaPlus } from "react-icons/fa";
 
-const sort = ["sortByDate", "sortByLike"];
-const tip = ["send", "receive"];
-const bookmark = ["UNCHAIN", "STAR PASS"];
+const post = ["upload post"];
+const like = ["add like", "remove like"];
+const sort = ["sort by date", "sort by like"];
 
 const ChannelBar = () => {
     return (
         <div className="channel-bar shadow-lg">
             <ChannelBlock />
             <div className="channel-container">
+                <Dropdown header="Post" selections={post} />
+                <Dropdown header="Like" selections={like} />
                 <Dropdown header="Sort" selections={sort} />
-                <Dropdown header="Tip" selections={tip} />
-                <Dropdown header="Bookmark" selections={bookmark} />
             </div>
         </div>
     );
@@ -34,7 +34,7 @@ const Dropdown = ({ header, selections }) => {
             {expanded &&
                 selections &&
                 selections.map((selection, index) => (
-                    <ActionSelection selection={selection} key={index} />
+                    <FeatureSelection selection={selection} key={index} />
                 ))}
         </div>
     );
@@ -49,16 +49,16 @@ const ChevronIcon = ({ expanded }) => {
     );
 };
 
-const ActionSelection = ({ selection }) => (
+const FeatureSelection = ({ selection }) => (
     <div className="dropdown-selection">
-        <BsHash size="24" className="text-gray-400" />
+        <BsHash size="18" className="text-gray-400" />
         <h5 className="dropdown-selection-text">{selection}</h5>
     </div>
 );
 
 const ChannelBlock = () => (
     <div className="channel-block">
-        <h5 className="channel-block-text">actions</h5>
+        <h5 className="channel-block-text">features</h5>
     </div>
 );
 
