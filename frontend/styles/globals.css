@@ -155,7 +155,7 @@
 
     .post-box {
         @apply flex flex-row items-center justify-between
-    fixed left-88 right-8 bottom-2
+    fixed left-100 right-8 bottom-2
     rounded-lg shadow-lg
     bg-gray-600 px-2
     h-12;
@@ -164,9 +164,28 @@
     .post-box-input {
         @apply font-semibold w-full
     bg-transparent outline-none
-    ml-0 mr-auto
+    ml-5 mr-auto
     text-gray-400 placeholder-gray-500
     cursor-text;
+    }
+
+    .post-button {
+        @apply flex flex-row flex-auto w-32 items-center justify-between font-semibold
+    fixed left-400 bottom-2
+    rounded-lg shadow-lg
+    text-black bg-yellow-500
+    hover:bg-yellow-600 hover:text-white
+    transition-all duration-100 ease-linear
+    cursor-pointer
+    hover:scale-100
+    px-2 h-12
+    hover:tracking-widest;
+    }
+
+    .post-button-text {
+        @apply font-bold w-full
+    ml-6 mr-auto
+    text-lg;
     }
 
     .channel-bar {
