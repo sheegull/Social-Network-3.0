@@ -74,66 +74,6 @@ const Home = () => {
                                 </button>
                             </div>
                         )}
-                        {currentAccount &&
-                            allPosts
-                                .slice(0)
-                                .reverse()
-                                .map((post, index) => {
-                                    return (
-                                        <div
-                                            key={index}
-                                            style={{
-                                                width: "600px",
-                                                backgroundColor: "gray",
-                                                marginTop: "16px",
-                                                padding: "8px",
-                                            }}
-                                        >
-                                            <div>#{post.id}</div>
-                                            <div>@{post.from}</div>
-                                            <div>
-                                                Posted at:
-                                                {new Date(
-                                                    post.timestamp.toNumber().toString() * 1000
-                                                )
-                                                    .toString()
-                                                    .substring(
-                                                        0,
-                                                        new Date(
-                                                            post.timestamp.toNumber().toString() *
-                                                                1000
-                                                        )
-                                                            .toString()
-                                                            .indexOf("GMT")
-                                                    )}
-                                            </div>
-                                            <div className="text">Text:{post.text}</div>
-                                            <div>
-                                                {!post.likeFlag ? (
-                                                    <button
-                                                        aria-label="favorite"
-                                                        size="small"
-                                                        color="primary"
-                                                        onClick={() => changeLikePost(post.id)}
-                                                    >
-                                                        <HiOutlineHeart />
-                                                        {post.likeCount}
-                                                    </button>
-                                                ) : (
-                                                    <button
-                                                        aria-label="favorite"
-                                                        size="small"
-                                                        color="secondary"
-                                                        onClick={() => changeLikePost(post.id)}
-                                                    >
-                                                        <HiOutlineHeart />
-                                                        {post.likeCount}
-                                                    </button>
-                                                )}
-                                            </div>
-                                        </div>
-                                    );
-                                })}
                     </div>
                 </div>
             </RequireWallet>

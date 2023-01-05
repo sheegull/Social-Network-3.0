@@ -1,5 +1,7 @@
 import TopNav from "../TopNav/TopNav";
 import PostBox from "../Form/PostBox";
+import { HiOutlineHeart } from "react-icons/hi2";
+
 import { useState } from "react";
 import { useWallet } from "../../hooks/useWallet";
 import { useDecentrasnsContract } from "../../hooks/useDecentrasnsContract";
@@ -22,7 +24,7 @@ const Feed = () => {
         <div className="content-container">
             <TopNav />
             <div className="content-list">
-                <Post
+                {/* <Post
                     name="Ada"
                     timestamp="one week ago"
                     text={`Lorem ipsum dolor sit amet consectetur adipisicing elit. Lorem ipsum dolor sit
@@ -36,44 +38,54 @@ const Feed = () => {
                     name="Ellie"
                     timestamp="4 days ago"
                     text={`Lorem ipsum dolor sit amet consectetur adipisicing elit. `}
-                />
-                <Post
-                    name="Chris"
-                    timestamp="4 days ago"
-                    text={`Lorem ipsum dolor sit amet consectetur adipisicing elit. Lorem ipsum dolor sit
-          amet consectetur adipisicing elit. Lorem ipsum dolor sit amet consectetur
-          adipisicing elit. Lorem ipsum dolor sit amet consectetur adipisicing elit. Lorem
-          ipsum dolor sit amet consectetur adipisicing elit.
-
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Lorem
-          ipsum dolor sit amet consectetur adipisicing elit.`}
-                />
-                <Post
-                    name="Claire"
-                    timestamp="2 days ago"
-                    text={`Lorem ipsum dolor sit amet consectetur adipisicing elit. Lorem ipsum dolor sit
-          amet consectetur adipisicing elit. Lorem ipsum dolor sit amet consectetur
-          adipisicing elit. Lorem ipsum dolor sit amet consectetur adipisicing elit. `}
-                />
-                <Post
-                    name="Albert"
-                    timestamp="22 hours ago"
-                    text={`Lorem ipsum dolor sit amet consectetur adipisicing elit. ☺️ `}
-                />
-                <Post
-                    name="Rebecca"
-                    timestamp="3 hours ago"
-                    text={`Lorem ipsum dolor sit amet consectetur adipisicing elit. Lorem ipsum dolor sit
-          amet consectetur adipisicing elit.`}
-                />
-                <Post
-                    name="H.U.N.K"
-                    timestamp="Just now"
-                    text={`Lorem ipsum dolor sit amet consectetur adipisicing elit. Lorem ipsum dolor sit
-          amet consectetur adipisicing elit. Lorem ipsum dolor sit amet consectetur
-          adipisicing elit. Lorem ipsum dolor sit amet consectetur adipisicing elit. Lorem
-          ipsum dolor sit amet consectetur adipisicing elit.`}
-                />
+                /> */}
+                {currentAccount &&
+                    allPosts
+                        .slice(0)
+                        .reverse()
+                        .map((post, index) => {
+                            return (
+                                <div
+                                    key={index}
+                                    style={{
+                                        width: "600px",
+                                        backgroundColor: "gray",
+                                        marginTop: "16px",
+                                        padding: "8px",
+                                    }}
+                                >
+                                    <div>#{post.id}</div>
+                                    <div>@{post.from}</div>
+                                    <div>
+                                        Posted at:
+                                        {new Date(post.timestamp.toNumber().toString() * 1000)
+                                            .toString()
+                                            .substring(
+                                                0,
+                                                new Date(
+                                                    post.timestamp.toNumber().toString() * 1000
+                                                )
+                                                    .toString()
+                                                    .indexOf("GMT")
+                                            )}
+                                    </div>
+                                    <div className="text">Text:{post.text}</div>
+                                    <div>
+                                        {currentAccount && (
+                                            <button
+                                                aria-label="favorite"
+                                                size="small"
+                                                color="primary"
+                                                onClick={() => changeLikePost(post.id)}
+                                            >
+                                                <HiOutlineHeart />
+                                                {post.likeCount}
+                                            </button>
+                                        )}
+                                    </div>
+                                </div>
+                            );
+                        })}
             </div>
             <PostBox
                 uploadPost={(text) => {
