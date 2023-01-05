@@ -4,7 +4,7 @@ export default function PostBox({ uploadPost }) {
     const [textValue, setTextValue] = useState("");
 
     return (
-        <>
+        <div className="post-container">
             <div className="post-box">
                 <input
                     type="text"
@@ -23,6 +23,6 @@ export default function PostBox({ uploadPost }) {
                     <div className="post-button-text">Post</div>
                 </button>
             </div>
-        </>
+        </div>
     );
 }

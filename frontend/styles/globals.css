@@ -152,6 +152,9 @@
     .timestamp {
         @apply text-xs text-left font-semibold text-gray-600 ml-2;
     }
+    /*
+    .post-container {
+    } */
 
     .post-box {
         @apply flex flex-row items-center justify-between
@@ -169,8 +172,9 @@
     cursor-text;
     }
 
+    // TODO: putton flex対応
     .post-button {
-        @apply flex flex-row flex-auto w-32 items-center justify-between font-semibold
+        @apply flex flex-row flex-auto w-32 items-center justify-between font-bold
     fixed left-400 bottom-2
     rounded-lg shadow-lg
     text-black bg-yellow-500
