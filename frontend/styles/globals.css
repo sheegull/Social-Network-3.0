@@ -152,9 +152,6 @@
     .timestamp {
         @apply text-xs text-left font-semibold text-gray-600 ml-2;
     }
-    /*
-    .post-container {
-    } */
 
     .post-box {
         @apply flex flex-row items-center justify-between

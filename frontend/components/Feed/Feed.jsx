@@ -33,28 +33,15 @@ const Feed = () => {
                                 <Post
                                     key={index}
                                     address={post.from}
-                                    // timestamp={post.timestamp}
+                                    timestamp={new Date(post.timestamp.toNumber().toString() * 1000)
+                                        .toString()
+                                        .substring(
+                                            0,
+                                            new Date(post.timestamp.toNumber().toString() * 1000)
+                                                .toString()
+                                                .indexOf("GMT")
+                                        )}
                                     text={post.text}
-                                    // <div
-                                    //     key={index}
-
-                                    // >
-                                    //     <div>#{post.id}</div>
-                                    //     <div>@{post.from}</div>
-                                    //     <div>
-                                    //         Posted at:
-                                    //         {new Date(post.timestamp.toNumber().toString() * 1000)
-                                    //             .toString()
-                                    //             .substring(
-                                    //                 0,
-                                    //                 new Date(
-                                    //                     post.timestamp.toNumber().toString() * 1000
-                                    //                 )
-                                    //                     .toString()
-                                    //                     .indexOf("GMT")
-                                    //             )}
-                                    //     </div>
-                                    //     <div className="text">Text:{post.text}</div>
                                     //     <div>
                                     //         {currentAccount && (
                                     //             <button
