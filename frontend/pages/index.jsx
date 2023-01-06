@@ -54,7 +54,7 @@ export default Home;
 const Login = ({ connectWallet }) => {
     return (
         <div className="login-container">
-            <Image alt="metamask" src={metamaskLogo} width={200} height={200} priority={true} />
+            <Image alt="metamask" src={metamaskLogo} width={160} height={160} priority={true} />
 
             <div className="login-text">
                 <p>Social Network 3.0 🧜</p>
