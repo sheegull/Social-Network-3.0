@@ -1,6 +1,7 @@
-import { FaSearch, FaHashtag, FaUserCircle } from "react-icons/fa";
+import { FaHashtag, FaUserCircle } from "react-icons/fa";
 import { useWallet } from "../../hooks/useWallet";
 
+// header
 const TopNav = () => {
     const { currentAccount, connectWallet } = useWallet();
     return (
