@@ -1,11 +1,10 @@
 import { useEffect, useState } from "react";
-import { ethers } from "ethers";
 
 export const useWallet = () => {
     // ユーザアカウントのアドレスを格納するための状態変数を定義
     const [currentAccount, setCurrentAccount] = useState();
 
-    //　walletに接続
+    // walletに接続
     const connectWallet = async () => {
         try {
             const { ethereum } = window;

@@ -15,13 +15,6 @@ describe("decentrasns", function () {
         return { owner, user1, user2, decentrasns };
     }
 
-    async function getTimestamp() {
-        const block = await ethers.provider.getBlockNumber();
-        const blockTimestamp = (await ethers.provider.getBlock(block)).timestamp + 1;
-
-        return blockTimestamp;
-    }
-
     describe("uploadPost", function () {
         it("Should return error", async function () {
             const { owner, decentrasns } = await loadFixture(deployContract);
@@ -31,7 +24,6 @@ describe("decentrasns", function () {
 
         it("Should upload a post", async function () {
             const { owner, user1, decentrasns } = await loadFixture(deployContract);
-            const { blockTimestamp } = await loadFixture(getTimestamp);
 
             // TEST #1 by owner
             let tx = await decentrasns.uploadPost("hello world!");
@@ -45,7 +37,6 @@ describe("decentrasns", function () {
             expect(post.text).to.equal("hello world!");
             expect(post.from).to.equal(owner.address);
             expect(post.likeCount).to.equal(0);
-            // await expect(await post.timestamp).to.equal(blockTimestamp);
 
             // TEST #2 by user1
             // check emit test
@@ -62,7 +53,6 @@ describe("decentrasns", function () {
             expect(post.text).to.equal("new world!");
             expect(post.from).to.equal(user1.address);
             expect(post.likeCount).to.equal(0);
-            // expect(post.timestamp).to.equal(Date.now());
         });
     });
 
