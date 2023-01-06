@@ -1,5 +1,6 @@
 import { useState, useRef } from "react";
 
+// 投稿用 message form
 export default function PostBox({ uploadPost }) {
     const [textValue, setTextValue] = useState("");
     const inputRef = useRef();
@@ -19,6 +20,7 @@ export default function PostBox({ uploadPost }) {
                     className="post-button"
                     onClick={() => {
                         uploadPost(textValue);
+                        // form reset
                         inputRef.current.value = "";
                     }}
                 >
