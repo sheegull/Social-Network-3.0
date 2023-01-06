@@ -77,7 +77,7 @@ contract decentrasns is ERC721URIStorage {
                     posts[_postId].likeCount--;
                 } else {
                     // いいね追加
-                    likes[_postId][i].isLiked == true;
+                    likes[_postId][i].isLiked = true;
                     emit LikePost(_postId, true);
                     posts[_postId].likeCount++;
                 }

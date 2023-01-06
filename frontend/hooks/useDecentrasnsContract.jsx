@@ -2,24 +2,24 @@ import { useState, useEffect } from "react";
 import { ethers } from "ethers";
 import ABI from "../utils/decentrasns.json";
 
-const contractAddress = "0xB66e3Ed7F536F9Bcf19DBFbA9f396B9844499Fc7";
+const contractAddress = "0x2d40126d3d3b897cBC78fd5074f18E87A6B80cf3";
 const contractABI = ABI.abi;
 
 export const useDecentrasnsContract = ({ currentAccount }) => {
     const [isLoading, setIsLoading] = useState(false);
+    const [timeIsSorted, setTimeIsSorted] = useState(false);
+    const [likeIsSorted, setLikeIsSorted] = useState(false);
     const [decentrasnsContract, setDecentrasnsContract] = useState();
     // 全てのpostを配列で保持する状態変数
     const [allPosts, setAllPosts] = useState([]);
     // 全てのいいねがされたpostを保持する状態変数
     const [likePosts, setLikePosts] = useState([]);
-    const [isSorted, setIsSorted] = useState(false);
 
     // contract呼び出し
     function getDecentrasnsContract() {
         try {
             const { ethereum } = window;
             if (ethereum) {
-                // @ts-ignore: ethereum as ethers.providers.ExternalProvider
                 const provider = new ethers.providers.Web3Provider(ethereum);
                 const signer = provider.getSigner();
                 const DecentrasnsContract = new ethers.Contract(
@@ -59,9 +59,13 @@ export const useDecentrasnsContract = ({ currentAccount }) => {
 
     useEffect(() => {
         getDecentrasnsContract();
-        getAllPosts();
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [currentAccount]);
+
+    useEffect(() => {
+        getAllPosts();
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [currentAccount, likePosts]);
 
     // 新規投稿
     async function uploadPost({ text }) {
@@ -76,7 +80,9 @@ export const useDecentrasnsContract = ({ currentAccount }) => {
             console.log("Done -- ", txn.hash);
             setIsLoading(false);
         } catch (error) {
+            alert("cannot upload an empty post");
             console.log(error);
+            setIsLoading(false);
         }
     }
 
@@ -90,11 +96,8 @@ export const useDecentrasnsContract = ({ currentAccount }) => {
             console.log("Processing...", txn.hash);
             setIsLoading(true);
             await txn.wait();
-            setLikePosts();
             console.log("Done -- ", txn.hash);
             setIsLoading(false);
-            // TODO: fix
-            await window.location.reload();
         } catch (error) {
             console.log(error);
         }
@@ -103,12 +106,12 @@ export const useDecentrasnsContract = ({ currentAccount }) => {
     // アップロード時間順にソート
     async function sortByTimestamp() {
         const result = allPosts.sort(function (a, b) {
-            if (!isSorted) {
-                setIsSorted(true);
-                return a.timestamp > b.timestamp ? 1 : -1;
-            } else {
-                setIsSorted(false);
+            if (!timeIsSorted) {
+                setTimeIsSorted(true);
                 return a.timestamp < b.timestamp ? 1 : -1;
+            } else {
+                setTimeIsSorted(false);
+                return a.timestamp > b.timestamp ? 1 : -1;
             }
         });
         setAllPosts(result);
@@ -117,18 +120,18 @@ export const useDecentrasnsContract = ({ currentAccount }) => {
     // いいね数順にソート
     async function sortByLike() {
         const result = allPosts.sort(function (a, b) {
-            if (!isSorted) {
-                setIsSorted(true);
+            if (!likeIsSorted) {
+                setLikeIsSorted(true);
                 return a.likeCount > b.likeCount ? 1 : -1;
             } else {
-                setIsSorted(false);
+                setLikeIsSorted(false);
                 return a.likeCount < b.likeCount ? 1 : -1;
             }
         });
         setAllPosts(result);
     }
 
-    // 新規Post追加状況を監視
+    // 新規Post/Like追加状況を監視
     useEffect(() => {
         const onNewPosted = (id, text, from, timestamp, likeCount) => {
             console.log("NewPosted", id, text, from, timestamp, likeCount);
@@ -145,30 +148,29 @@ export const useDecentrasnsContract = ({ currentAccount }) => {
             ]);
         };
 
-        // fix bug
-        // const onLikePost = (postId, isLiked) => {
-        //     console.log("LikePost", postId, isLiked);
-        //     // eventから渡されたLikePostのデータを追加
-        //     setLikePosts((prevState) => [
-        //         ...prevState,
-        //         {
-        //             postId: postId.toNumber(),
-        //             isLiked: isLiked,
-        //         },
-        //     ]);
-        // };
+        const onLikePost = (postId, isLiked) => {
+            console.log("LikePost", postId, isLiked);
+            // eventから渡されたLikePostのデータを追加
+            setLikePosts((prevState) => [
+                ...prevState,
+                {
+                    postId: postId.toNumber(),
+                    isLiked: isLiked,
+                },
+            ]);
+        };
 
         // イベントリスナの登録
         if (decentrasnsContract) {
             decentrasnsContract.on("NewPosted", onNewPosted);
-            // decentrasnsContract.on("LikePost", onLikePost);
+            decentrasnsContract.on("LikePost", onLikePost);
         }
 
         // イベントリスナの登録を解除
         return () => {
             if (decentrasnsContract) {
                 decentrasnsContract.off("NewPosted", onNewPosted);
-                // decentrasnsContract.off("LikePost", onLikePost);
+                decentrasnsContract.off("LikePost", onLikePost);
             }
         };
         // eslint-disable-next-line react-hooks/exhaustive-deps
