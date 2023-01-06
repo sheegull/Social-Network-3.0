@@ -5,13 +5,12 @@ import { BiSort } from "react-icons/bi";
 import { HiOutlineHeart } from "react-icons/hi2";
 import { MdFavorite } from "react-icons/md";
 
-import { useState } from "react";
 import { useWallet } from "../../hooks/useWallet";
 import { useDecentrasnsContract } from "../../hooks/useDecentrasnsContract";
 import Loading from "../Loading/Loading";
 
 const Feed = () => {
-    const { currentAccount, connectWallet } = useWallet();
+    const { currentAccount } = useWallet();
     const {
         isLoading,
         allPosts,
@@ -29,6 +28,7 @@ const Feed = () => {
             <TopNav />
             <Loading isLoading={isLoading} />
             <div className="content-list">
+                {/* sort-button設置 */}
                 {currentAccount && (
                     <div className="sort-content">
                         <button onClick={sortByTimestamp}>
@@ -46,6 +46,7 @@ const Feed = () => {
                         </button>
                     </div>
                 )}
+                {/* 全てのpostsを表示 */}
                 {currentAccount &&
                     allPosts
                         .slice(0)
@@ -72,6 +73,7 @@ const Feed = () => {
                                         text={post.text}
                                         likeCount={post.likeCount}
                                     />
+                                    {/* いいねボタン設置 */}
                                     <div className="like-content">
                                         <button onClick={() => changeLikePost(post.id)}>
                                             <LikeIcon icon={<HiOutlineHeart size="16" />} />
@@ -82,7 +84,7 @@ const Feed = () => {
                             );
                         })}
             </div>
-
+            {/* 投稿ボタン設置 */}
             <PostBox
                 uploadPost={(text) => {
                     uploadPost({ text });
@@ -92,10 +94,12 @@ const Feed = () => {
     );
 };
 
-const Post = ({ id, address, timestamp, text, likeCount }) => {
+const Post = ({ address, timestamp, text }) => {
     const seed = Math.round(Math.random() * 100);
     return (
         <div className={"post"}>
+            {/* 表示用のアバター用意
+            レンダリングごとにアバターが変わることに注意 */}
             <div className="avatar-wrapper">
                 <img
                     src={`https://avatars.dicebear.com/api/open-peeps/${seed}.svg`}
@@ -110,8 +114,6 @@ const Post = ({ id, address, timestamp, text, likeCount }) => {
                     <small className="timestamp">{timestamp}</small>
                 </p>
                 <p className="post-text">{text}</p>
-                {/* <HiOutlineHeart /> */}
-                {/* <p>{likeCount}</p> */}
             </div>
         </div>
     );

@@ -141,7 +141,7 @@
     }
 
     .sort-content {
-        @apply relative flex items-center justify-end mt-5 mb-10;
+        @apply relative flex items-center justify-end mt-8 mb-5;
     }
 
     .sort-date-button {
