@@ -57,24 +57,6 @@ export const useDecentrasnsContract = ({ currentAccount }) => {
         }
     }
 
-    // いいねされている全てのpost取得
-    // async function getLikesPost(postId) {
-    //     if (!decentrasnsContract) return;
-    //     try {
-    //         const likes = await decentrasnsContract.getLikesPost(postId);
-    //         // 画面表示のため整理
-    //         const likesCleaned = likes.map((like) => {
-    //             return {
-    //                 from: like.from,
-    //                 isLiked: like.isLiked,
-    //             };
-    //         });
-    //         setLikePosts(likesCleaned);
-    //     } catch (error) {
-    //         console.log(error);
-    //     }
-    // }
-
     useEffect(() => {
         getDecentrasnsContract();
         // eslint-disable-next-line react-hooks/exhaustive-deps
