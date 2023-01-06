@@ -1,8 +1,9 @@
 import TopNav from "../TopNav/TopNav";
 import PostBox from "../Form/PostBox";
-import { IoTime } from "react-icons/io5";
-import { BiSort } from "react-icons/bi";
 import { HiOutlineHeart } from "react-icons/hi2";
+import { BiSort } from "react-icons/bi";
+import { IoTime } from "react-icons/io5";
+
 import { MdFavorite } from "react-icons/md";
 
 import { useWallet } from "../../hooks/useWallet";
