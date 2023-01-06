@@ -57,8 +57,12 @@ const Login = ({ connectWallet }) => {
             <Image alt="metamask" src={metamaskLogo} width={200} height={200} priority={true} />
 
             <div className="login-text">
-                <p>Welcome to DecentraSNS 🧜</p>
-                <p>Connect to Metamask !!</p>
+                <p>Social Network 3.0 🧜</p>
+                <br />
+                <p>UNCHAIN</p>
+                <p>STAR PASS</p>
+                <br />
+                <p>Connect to Metamask</p>
             </div>
             <div className="connectwallet-button" onClick={() => connectWallet()}>
                 Connect Wallet
@@ -75,17 +79,3 @@ const Login = ({ connectWallet }) => {
         </div>
     );
 };
-
-/* <div className="mainContainer">
-    <div className="dataContainer">
-        {isLoading ? (
-            <div>Loading...</div>
-        ) : (
-            <PostBox
-                uploadPost={(text) => {
-                    uploadPost({ text });
-                }}
-            />
-        )}
-    </div>
-</div>; */
