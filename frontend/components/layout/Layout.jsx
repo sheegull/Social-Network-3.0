@@ -1,10 +1,8 @@
 import Head from "next/head";
-import styles from "./Layout.module.css";
-import Link from "next/link";
 
-export default function Layout({ children, home }) {
+export default function Layout({ children }) {
     return (
-        <div className={styles.container}>
+        <div>
             <Head>
                 <link
                     rel="icon"
@@ -13,14 +11,8 @@ export default function Layout({ children, home }) {
                 <meta name="description" content="It is a Social-Network 3.0" />
                 <title>D-SNS</title>
             </Head>
+            {/* index.jsxへ */}
             <main>{children}</main>
-            {/* {!home && (
-                <div className={styles.backToHome}>
-                    <Link href="/">
-                        <div>← Back to home</div>
-                    </Link>
-                </div>
-            )} */}
         </div>
     );
 }
