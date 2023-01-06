@@ -129,7 +129,7 @@
         @apply flex flex-col
     bg-gray-700
     m-0
-    h-full w-full
+    h-screen w-full
     overflow-hidden;
     }
 
