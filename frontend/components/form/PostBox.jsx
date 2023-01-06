@@ -15,15 +15,14 @@ export default function PostBox({ uploadPost }) {
                     id="input_text"
                     onChange={(e) => setTextValue(e.target.value)}
                 />
-            </div>
-            <div className="post-button">
                 <button
+                    className="post-button"
                     onClick={() => {
                         uploadPost(textValue);
                         inputRef.current.value = "";
                     }}
                 >
-                    <div className="post-button-text">Post</div>
+                    Post
                 </button>
             </div>
         </div>
