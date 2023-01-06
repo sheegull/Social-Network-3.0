@@ -1,8 +1,10 @@
-# Social-Network-3.0
+# Social-Network-3.0 💫
 
-[Demo](https://social-network-3-0.vercel.app/)
+[MVP Demo](https://social-network-3-0.vercel.app/)
 
-ユーザーがブロックチェーンに小さなテキストデータのスニペットを投稿できる分散型ソーシャルネットワークアプリケーション
+ユーザーがブロックチェーンに小さなテキストデータのスニペットを投稿できる分散型ソーシャルネットワークアプリケーションです。
+
+プロフィール機能は実装しておりません。プロフィール画像はレンダリングごとに自動で適用されるため、毎回画像が変化します。
 
 ## 環境
 ```
@@ -67,6 +69,8 @@ alchemy
   https://user-images.githubusercontent.com/89774989/210961387-8c00bf1a-3a87-4852-b256-89a9316f0884.mp4
 
 <br />
+
+## contract
 
 ```
 npx hardhat test
