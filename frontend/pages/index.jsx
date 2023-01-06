@@ -1,38 +1,16 @@
-import styles from "../styles/Home.module.css";
-import { useState } from "react";
-import Link from "next/link";
 import Layout from "../components/layout/Layout";
 import { useWallet } from "../hooks/useWallet";
-import { useDecentrasnsContract } from "../hooks/useDecentrasnsContract";
-import PostBox from "../components/Form/PostBox";
-import { HiOutlineHeart } from "react-icons/hi2";
 import SideBar from "../components/Sidebar/Sidebar";
 import ChannelBar from "../components/ChannelBar/ChannelBar";
 import Feed from "../components/Feed/Feed";
-import Image from "next/image";
-import metamaskLogo from "../public/metamask.png";
-import TopNav from "../components/TopNav/TopNav";
-import twitterLogo from "../public/twitter.svg";
-
-const TWITTER_HANDLE = "sheegull";
-const TWITTER_LINK = `https://twitter.com/${TWITTER_HANDLE}`;
+import Login from "../components/Form/Login";
 
 const Home = () => {
     const { currentAccount, connectWallet } = useWallet();
-    const {
-        isLoading,
-        allPosts,
-        likePosts,
-        uploadPost,
-        changeLikePost,
-        sortByTimestamp,
-        sortByLike,
-    } = useDecentrasnsContract({
-        currentAccount,
-    });
 
     return (
         <Layout home>
+            {/* main page */}
             {currentAccount ? (
                 <div className="flex">
                     <SideBar />
@@ -40,6 +18,7 @@ const Home = () => {
                     <Feed />
                 </div>
             ) : (
+                // login page
                 <div className="flex">
                     <SideBar />
                     <Login connectWallet={connectWallet} />
@@ -50,32 +29,3 @@ const Home = () => {
 };
 
 export default Home;
-
-const Login = ({ connectWallet }) => {
-    return (
-        <div className="login-container">
-            <Image alt="metamask" src={metamaskLogo} width={160} height={160} priority={true} />
-
-            <div className="login-text">
-                <p>Social Network 3.0 🧜</p>
-                <br />
-                <p>UNCHAIN</p>
-                <p>STAR PASS</p>
-                <br />
-                <p>Connect to Metamask</p>
-            </div>
-            <div className="connectwallet-button" onClick={() => connectWallet()}>
-                Connect Wallet
-            </div>
-            <div className="footer-container">
-                <Image alt="Twitter Logo" className="twitter-logo" src={twitterLogo} />
-                <a
-                    className="footer-text"
-                    href={TWITTER_LINK}
-                    target="_blank"
-                    rel="noreferrer"
-                >{`built on @${TWITTER_HANDLE}`}</a>
-            </div>
-        </div>
-    );
-};
