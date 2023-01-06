@@ -44,14 +44,6 @@ contract decentrasns is ERC721URIStorage {
         require(bytes(_text).length > 0, "Cannot pass an empty text");
         postCount++;
 
-        // Post memory newPost;
-        // newPost.id = postCount;
-        // newPost.text = _text;
-        // newPost.from = msg.sender;
-        // newPost.timestamp = block.timestamp;
-        // newPost.likeCount = 0;
-        // posts.push(newPost);
-
         // 新規Postを作成
         posts[postCount] = Post({
             id: postCount,
