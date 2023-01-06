@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import { ethers } from "ethers";
 import ABI from "../utils/decentrasns.json";
 
-const contractAddress = "0x2d40126d3d3b897cBC78fd5074f18E87A6B80cf3";
+const contractAddress = "0x2C84D5e72960e8cf7005ed94bd565B909e621365";
 const contractABI = ABI.abi;
 
 export const useDecentrasnsContract = ({ currentAccount }) => {
