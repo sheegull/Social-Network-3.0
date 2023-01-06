@@ -98,7 +98,9 @@ export const useDecentrasnsContract = ({ currentAccount }) => {
             console.log("Done -- ", txn.hash);
             setIsLoading(false);
         } catch (error) {
+            alert("cannot upload an empty post");
             console.log(error);
+            setIsLoading(false);
         }
     }
 
