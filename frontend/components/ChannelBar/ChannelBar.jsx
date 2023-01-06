@@ -6,6 +6,7 @@ const post = ["upload post"];
 const like = ["add like", "remove like"];
 const sort = ["sort by date", "sort by like"];
 
+// features一覧
 const ChannelBar = () => {
     return (
         <div className="channel-bar shadow-lg">
@@ -19,6 +20,7 @@ const ChannelBar = () => {
     );
 };
 
+// dropdown機能
 const Dropdown = ({ header, selections }) => {
     const [expanded, setExpanded] = useState(true);
 
@@ -40,6 +42,7 @@ const Dropdown = ({ header, selections }) => {
     );
 };
 
+// dropdown用アイコン
 const ChevronIcon = ({ expanded }) => {
     const chevClass = "text-accent text-opacity-80 my-auto mr-1";
     return expanded ? (
