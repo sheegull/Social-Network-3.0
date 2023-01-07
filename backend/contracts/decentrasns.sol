@@ -3,9 +3,8 @@
 pragma solidity ^0.8.17;
 
 import "hardhat/console.sol";
-import "@openzeppelin/contracts/token/ERC721/extensions/ERC721URIStorage.sol";
 
-contract decentrasns is ERC721URIStorage {
+contract decentrasns {
     uint256 public postCount;
 
     struct Post {
@@ -21,7 +20,6 @@ contract decentrasns is ERC721URIStorage {
         bool isLiked;
     }
 
-    // Post[] public posts;
     mapping(uint256 => Post) public posts;
     // postId と Like構造体を紐付ける
     mapping(uint256 => Like[]) public likes;
@@ -36,7 +34,9 @@ contract decentrasns is ERC721URIStorage {
 
     event LikePost(uint256 postId, bool isLiked);
 
-    constructor() ERC721("decentrasns", "DSNS") {}
+    constructor() {
+        console.log("contract success");
+    }
 
     // post機能
     function uploadPost(string memory _text) public {
