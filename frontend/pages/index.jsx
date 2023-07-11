@@ -1,3 +1,4 @@
+import { useState } from "react";
 import Layout from "../components/layout/Layout";
 import { useWallet } from "../hooks/useWallet";
 import SideBar from "../components/Sidebar/Sidebar";
@@ -7,11 +8,16 @@ import Login from "../components/Form/Login";
 
 const Home = () => {
     const { currentAccount, connectWallet } = useWallet();
+    const [useGuestMode, setUseGuestMode] = useState(false);
+
+    const handleGuestMode = () => {
+        setUseGuestMode(true);
+    };
 
     return (
         <Layout home>
             {/* main page */}
-            {currentAccount ? (
+            {currentAccount || useGuestMode ? (
                 <div className="flex">
                     <SideBar />
                     <ChannelBar />
@@ -20,8 +26,7 @@ const Home = () => {
             ) : (
                 // login page
                 <div className="flex">
-                    {/* <SideBar /> */}
-                    <Login connectWallet={connectWallet} />
+                    <Login connectWallet={connectWallet} handleGuestMode={handleGuestMode} />
                 </div>
             )}
         </Layout>

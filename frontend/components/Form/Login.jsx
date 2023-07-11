@@ -5,7 +5,7 @@ import twitterLogo from "../../public/twitter.svg";
 const TWITTER_HANDLE = "sheegull";
 const TWITTER_LINK = `https://twitter.com/${TWITTER_HANDLE}`;
 
-const Login = ({ connectWallet }) => {
+const Login = ({ connectWallet, handleGuestMode }) => {
     return (
         <div className="login-container">
             <Image alt="metamask" src={metamaskLogo} width={160} height={160} priority={true} />
@@ -13,8 +13,11 @@ const Login = ({ connectWallet }) => {
                 <p>Social Network 3.0🧜</p>
                 <p>Connect to Metamask</p>
             </div>
-            <div className="connectwallet-button" onClick={() => connectWallet()}>
+            <div className="connectWallet-button" onClick={() => connectWallet()}>
                 Connect Wallet
+            </div>
+            <div className="guestMode-button" onClick={() => handleGuestMode()}>
+                ゲストの方はこちら
             </div>
             <div className="footer-container">
                 <Image alt="Twitter Logo" className="twitter-logo" src={twitterLogo} />

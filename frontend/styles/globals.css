@@ -21,11 +21,22 @@
     space-y-3 tracking-widest;
     }
 
-    .connectwallet-button {
+    .connectWallet-button {
         @apply relative flex items-center justify-center
     h-12 w-44 mx-auto
     mt-24
     font-semibold
+    hover:bg-yellow-600 bg-white
+    text-gray-800 hover:text-white
+    hover:rounded-xl rounded-3xl
+    transition-all duration-300 ease-linear
+    cursor-pointer shadow-lg;
+    }
+    .guestMode-button {
+        @apply relative flex items-center justify-center
+    h-12 w-44 mx-auto
+    mt-4
+    text-sm
     hover:bg-yellow-600 bg-white
     text-gray-800 hover:text-white
     hover:rounded-xl rounded-3xl
