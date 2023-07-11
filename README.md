@@ -10,8 +10,8 @@ Goerli testnetに小さなテキストデータのスニペットを投稿でき
 ```
 node.js v16.18.1
 npm 8.19.2
-solidity 0.8.17
-hardhat 2.12.4
+solidity 0.8.18
+hardhat 2.16.1
 react 18.2.0
 next 13.1.1
 tailwindcss 3.2.4
