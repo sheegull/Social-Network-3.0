@@ -27,8 +27,8 @@ alchemy
 - ユーザーが自分のウォレットをWEBアプリケーションに接続できる。
 <br />
 
-  https://github.com/sheegull/Social-Network-3.0/assets/89774989/1024c71e-fd7f-461c-855b-a216975e7605.mp4
-  
+  https://user-images.githubusercontent.com/89774989/210957122-49ad7d31-9feb-4244-aa46-0382c7cd07a9.mp4
+
 <br />
 
 - ユーザーがWEBアプリケーションのグローバルタイムラインに投稿をアップロードできる
@@ -38,18 +38,18 @@ alchemy
     - 投稿者のウォレットアドレスが表示される
     - 0文字制限
     - Loading
- 
+
 <br />
- 
+
   https://user-images.githubusercontent.com/89774989/210958729-e1192913-f381-4662-94ab-79ac9a98e1f5.mp4
-  
+
 <br />
 
 - ユーザーはどの投稿にも「いいね！」をつけることができる
 
     - 1ユーザーにつき1投稿に1「いいね！」まで
     - 「いいね！」をもう一度することで「いいね！」を取り消すことができる
-    
+
 <br />
 
   https://user-images.githubusercontent.com/89774989/210960624-2a1c6e53-b5fa-4bcf-9903-c9cd55020883.mp4
@@ -63,7 +63,7 @@ alchemy
 - グローバルタイムラインは、すべてのユーザーの投稿を見ることができる
 
     - ユーザーは、アップロード時間と「いいね！」の数に基づいて、タイムラインをソートすることができる
-    
+
 <br />
 
   https://user-images.githubusercontent.com/89774989/210961387-8c00bf1a-3a87-4852-b256-89a9316f0884.mp4
@@ -75,25 +75,25 @@ alchemy
 ```
 npx hardhat test
 
-  decentrasns
+
+  dsns
+    contract success
     uploadPost
-      ✔ Should return error (2195ms)
-      ✔ Should upload a post (103ms)
+      ✔ Should return error (1580ms)
+      ✔ Should upload a post (97ms)
     changeLikePost
-      ✔ Should return error (72ms)
-      ✔ Should add/remove like (132ms)
+      ✔ Should add/remove like (137ms)
     getAllPosts
-      ✔ Should return all the posts (64ms)
+      ✔ Should return all the posts (58ms)
     getLikesPost
-      ✔ Should return users who have liked the post (80ms)
+      ✔ Should return users who have liked the post (73ms)
 
 
-  6 passing (3s)
+  5 passing (2s)
 ```
 
 ```
 npx hardhat run scripts/deploy.js --network goerli
-Compiled 13 Solidity files successfully
 deploy success 🎉🎉
-Contract deployed to: 0x2C84D5e72960e8cf7005ed94bd565B909e621365
+Contract deployed to:  0x4AC26d0686EB3A52dD0b218C2B0F00c543f152AF
 ```
