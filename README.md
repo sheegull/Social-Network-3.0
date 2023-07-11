@@ -27,8 +27,8 @@ alchemy
 - ユーザーが自分のウォレットをWEBアプリケーションに接続できる。
 <br />
 
-  https://user-images.githubusercontent.com/89774989/210957122-49ad7d31-9feb-4244-aa46-0382c7cd07a9.mp4
-  
+  https://github.com/sheegull/Social-Network-3.0/assets/89774989/f695097d-6781-4ee0-bf9c-5eea50ee741b
+    
 <br />
 
 - ユーザーがWEBアプリケーションのグローバルタイムラインに投稿をアップロードできる
