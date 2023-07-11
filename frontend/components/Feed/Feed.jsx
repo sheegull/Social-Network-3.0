@@ -7,7 +7,7 @@ import { IoTime } from "react-icons/io5";
 import { MdFavorite } from "react-icons/md";
 
 import { useWallet } from "../../hooks/useWallet";
-import { useDecentrasnsContract } from "../../hooks/useDecentrasnsContract";
+import { useDsnsContract } from "../../hooks/useDsnsContract";
 import Loading from "../Loading/Loading";
 
 const Feed = () => {
@@ -20,7 +20,7 @@ const Feed = () => {
         changeLikePost,
         sortByTimestamp,
         sortByLike,
-    } = useDecentrasnsContract({
+    } = useDsnsContract({
         currentAccount,
     });
 

@@ -20,7 +20,7 @@ const Home = () => {
             ) : (
                 // login page
                 <div className="flex">
-                    <SideBar />
+                    {/* <SideBar /> */}
                     <Login connectWallet={connectWallet} />
                 </div>
             )}
