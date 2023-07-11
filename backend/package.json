@@ -1,5 +1,5 @@
 {
-  "name": "contract",
+  "name": "backend",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
@@ -10,15 +10,14 @@
   "author": "",
   "license": "ISC",
   "devDependencies": {
-    "@nomicfoundation/hardhat-toolbox": "^2.0.0",
-    "@openzeppelin/contracts": "^4.8.0",
+    "@nomicfoundation/hardhat-toolbox": "^2.0.2",
     "@openzeppelin/test-helpers": "^0.5.16",
     "chai": "^4.3.7",
-    "hardhat": "^2.12.4",
+    "hardhat": "^2.16.1",
     "mocha": "^10.2.0",
-    "web3": "^1.8.1"
+    "web3": "^4.0.2"
   },
   "dependencies": {
-    "dotenv": "^16.0.3"
+    "dotenv": "^16.3.1"
   }
 }
